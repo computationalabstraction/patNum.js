@@ -1,0 +1,14 @@
+{
+  "name": "stats.js",
+  "version": "0.0.1",
+  "description": "A Statistics Library",
+  "main": "index.js",
+  "scripts": {
+    "start":"node ."
+  },
+  "author": "Archan Patkar",
+  "license": "MIT",
+  "dependencies": {
+    "prettyjson": "^1.2.1"
+  }
+}
