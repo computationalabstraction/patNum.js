@@ -1,2 +1,2 @@
-# Stats.js
-A Statistics Library in Javascript
+# patNum.js
+A Mathematics/Statistics Library in Javascript
