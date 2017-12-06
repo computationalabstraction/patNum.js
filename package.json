@@ -2,7 +2,7 @@
   "name": "stats.js",
   "version": "0.0.1",
   "description": "A Statistics Library",
-  "main": "index.js",
+  "main": "Demo.js",
   "scripts": {
     "start":"node ."
   },
