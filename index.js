@@ -72,3 +72,7 @@ print(f1.of(2));
 f1.table.forEach(element => {
     print(element);
 });
+
+f1.inverse().table.forEach(element => {
+    print(element);
+});

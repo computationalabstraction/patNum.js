@@ -1,3 +1,5 @@
+var FunctionRecord = require("./DataUnit").FunctionRecord;
+
 class Function{}
 
 
@@ -42,8 +44,12 @@ class FunctionTable extends Function
 
     inverse()
     {
-        inverse
-        for()
+        var inverse = new FunctionTable();
+        for(let record of this.table)
+        {
+            inverse.addRecord(new FunctionRecord(record.ouput,record.input));
+        }
+        return inverse;
     }
 
     of(input)
