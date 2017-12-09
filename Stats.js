@@ -1,3 +1,10 @@
+// Dependancies ---------------------------------------------------------------------
+
+// Mathematical Graph Representation
+var Graph = require("./Graph");
+
+
+
 function AFrequency(data,val)
 {
   var count = 0;
