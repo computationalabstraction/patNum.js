@@ -66,14 +66,16 @@ class FunctionTable extends Function
 
 class BinomialEquation extends Function
 {
-    constructor(equation)
+    constructor(equation,inverse)
     {
         super();
         this.equation = equation;
+        this.inverse = inverse
     }
 
     x(value)
     {
+        return this.inverse(value);
     }
 
     y(value)
