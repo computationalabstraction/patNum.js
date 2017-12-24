@@ -3,7 +3,7 @@ var FunctionRecord = require("./DataUnit").FunctionRecord;
 var FunctionTable = require("./Function").FunctionTable;
 var print = require('./Print');
 
-data = [11,2,45,5,3,2,4,11,4,3,5];
+var data = [11,2,45,5,3,2,4,11,4,3,5];
 
 // Min
 print("Min");
@@ -61,18 +61,21 @@ print("Median Absolute Deviation")
 print(stats.MedianAbsoluteDeviation(data))
 
 //Function Table
-f1 = new FunctionTable(
+var f1 = new FunctionTable(
     new FunctionRecord(1,10),
     new FunctionRecord(2,20),
     new FunctionRecord(3,30)
 );
 
+// f(2)
 print(f1.of(2));
 
+//printing function table
 f1.table.forEach(element => {
     print(element);
 });
 
+//printing inverse of function table
 f1.inverse().table.forEach(element => {
     print(element);
 });
