@@ -164,12 +164,10 @@ function min(data)
   return min;
 }
 
-
 function Range(data)
 {
   return max(data) - min(data);
 }
-
 
 // Exports ---------------------------------------------------------------------
 
