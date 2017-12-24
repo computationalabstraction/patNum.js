@@ -36,7 +36,7 @@ class FunctionTable extends Function
 
     *[Symbol.iterator]()
     {
-        for(record of this.table)
+        for(let record of this.table)
         {
             yield record;
         }
@@ -62,6 +62,25 @@ class FunctionTable extends Function
             }
         }
     }
+}
+
+class BinomialEquation extends Function
+{
+    constructor(equation)
+    {
+        super();
+        this.equation = equation;
+    }
+
+    x(value)
+    {
+    }
+
+    y(value)
+    {
+        return this.equation(value);
+    }
+
 }
 
 // Exports ---------------------------------------------------------------------
