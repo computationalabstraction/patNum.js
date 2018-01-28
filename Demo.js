@@ -132,3 +132,14 @@ m1 = new Matrix([
 m2 = new Matrix([2,20]);
 
 console.log(m1.divide(m2));
+
+// Diagonal Operation
+m2 = new Matrix([
+    [10,20,30,40],
+    [100,200,300,400],
+    [1000,2000,3000,4000],
+    [10000,20000,30000,40000]
+]);
+
+console.log(m2.clone().diagonal(1,n => n * 2).row(1,n => n / 2).transform(n => n ** 2));
+console.log(m2);
