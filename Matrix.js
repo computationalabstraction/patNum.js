@@ -27,7 +27,7 @@ class Matrix
 
     transform(operation)
     {
-        for(let row in this.data)
+        for(let row of this.data)
         {
             if( Array.isArray(row) )
             {
@@ -36,16 +36,17 @@ class Matrix
                     row[element] = operation(row[element]);
                 }
             }
-            else
+            else if(typeof row == "number")
             {
                 this.data[row] = operation(this.data[row]);
             }
         }
+        return this;
     }
 
     row(index,operation)
     {
-        let row = this.data[index];
+        let row = this.data[index - 1];
         if(typeof row == "number")
         {
             this.data[row] = operation(row);
@@ -57,6 +58,7 @@ class Matrix
                 row[element] = operation(row[element]);
             }
         }
+        return this;
     }
 
     column(index,operation)
@@ -72,6 +74,52 @@ class Matrix
                 row[index] = operation(row[index]);
             }
         }
+        return this;
+    }
+
+    diagonal(type,operation)
+    {
+        if(type == 1)
+        {
+            let diagonal = 0;
+            for(let row of this.data)
+            {
+                row[diagonal] = operation(row[diagonal]);
+                diagonal++;
+            }   
+        }
+        else if(type == 2)
+        {
+            let diagonal = this.data.length;
+            for(let row of this.data.map(e=>e).reverse())
+            {
+                row[diagonal] = operation(row[diagonal]);
+                diagonal--;
+            }   
+        }
+        return this;
+    }
+
+    clone()
+    {
+        let newMatrix = [];
+        for(let row of this.data)
+        {
+            if(typeof row == "number")
+            {
+                newMatrix.push(row);
+            }
+            else if(Array.isArray(row))
+            {
+                let newRow = [];
+                for(let e of row)
+                {
+                    newRow.push(e);
+                }
+                newMatrix.push(newRow);
+            }
+        }
+        return new Matrix(newMatrix);
     }
 
     operateWith(matrix,operation)
