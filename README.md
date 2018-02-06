@@ -66,9 +66,6 @@ print(stats.MeanAbsoluteDeviation(data))
 print("Median Absolute Deviation")
 print(stats.MedianAbsoluteDeviation(data))
 
-
-// Matrix also supports Scalar Operations
-
 // Matrix Add
 let m1 = new Matrix([
     [1000,2000,3000,4000],
@@ -134,4 +131,5 @@ m2 = new Matrix([
 console.log(m2.clone().diagonal(1,n => n * 2).row(1,n => n / 2).transform(n => n ** 2));
 console.log(m2);
 
+// Matrix also supports Scalar Operations
 ```
