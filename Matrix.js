@@ -1,8 +1,10 @@
 class Matrix 
 {
-    constructor(array)
+    constructor(array,rows=null,columns=null)
     {
-        this.data = array;
+        this.matrix = array;
+        this.rows = rows;
+        this.columns = columns;
     }
 
     add(matrix)
@@ -23,6 +25,16 @@ class Matrix
     divide(matrix)
     {
         return this.operateWith(matrix, (n1,n2) => n1 / n2 );
+    }
+
+    dot(matrix)
+    {
+        let columns = this.data[0].length;
+        let rows = matrix.data.length;
+        if(column == rows)
+        {
+
+        }
     }
 
     transform(operation)
