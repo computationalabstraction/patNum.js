@@ -105,9 +105,25 @@ m2 = new Matrix([
     [50,100]
 ]);
 
-// Currently Supports Hadamard product
 print(m1.multiply(m2));
 
+// Matrix Multiplication or Linear Algebra Multiplication
+
+m1 = new Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+])
+
+m2 = new Matrix([
+    [10,20,30],
+    [40,50,60]
+])
+
+console.log(m1.dot(m2));
+
+//Matrix Transpose
+console.log(m1.transpose());
 
 // Matrix Divide
 m1 = new Matrix([
