@@ -134,6 +134,4 @@ m1 = new Matrix([
 m2 = new Matrix([2,20]);
 
 console.log(m1.divide(m2));
-
-// Matrix also supports Scalar Operations
 ```
