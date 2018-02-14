@@ -1,6 +1,5 @@
 # patNum.js
-### A Mathematics/Statistics Library in Javascript for Numerical Analysis 📈
-
+### A Mathematics/Statistics Library in Javascript
 
 
 ## Example Usage
