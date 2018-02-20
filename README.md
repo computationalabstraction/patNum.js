@@ -184,7 +184,8 @@ const m1 = new pn.Matrix([ 10, 20, 30 ]);
 
 #### `Column Vector`
 ``` javascript
-const m1 = new pn.Matrix([ [10], 
+const m1 = new pn.Matrix([ 
+                           [10], 
                            [20], 
                            [30]
                          ]);
