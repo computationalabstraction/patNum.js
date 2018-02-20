@@ -72,7 +72,7 @@ pn.PopulationStandardDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 
 #### `MeanAbsoluteDeviation (Deviation)`
 ``` javascript
-pn.PopulationStandardDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+pn.MeanAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 // Returns - 7.47
 ```
 
