@@ -81,3 +81,97 @@ pn.MeanAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 pn.MedianAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 // Returns - 2
 ```
+
+## Matrix
+
+#### `Matrix Creation`
+``` javascript
+const m1 = new pn.Matrix([
+ [1000,2000,3000,4000],
+ [100,200,300,400]
+]);
+```
+
+#### `Matrix Addition`
+``` javascript
+const m1 = new pn.Matrix([
+ [1000,2000,3000,4000],
+ [100,200,300,400]
+]);
+
+const m2 = new pn.Matrix([
+    [100,200,300,400],
+    [1000,2000,3000,4000]
+]);
+
+const m3 = m1.add(m2); // Returns a New Matrix
+```
+
+#### `Matrix Subtraction`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [100,200]
+]);
+
+const m2 = new pn.Matrix([
+    [100,200,300,400],
+    [1000,2000,3000,4000]
+]);
+
+const m3 = m1.subtract(m2); // Returns a New Matrix
+```
+
+#### `Matrix Hadamard Multiply`
+``` javascript
+const m1 = new pn.Matrix([
+    [1,2],
+    [10,20]
+]);
+
+const m2 = new pn.Matrix([
+    [5,10],
+    [50,100]
+]);
+
+const m3 = m1.multiply(m2); // Returns a New Matrix
+```
+
+#### `Matrix Dot Product (Matrix Linear Multiplication)`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+])
+
+const m2 = new pn.Matrix([
+    [10,20,30],
+    [40,50,60]
+])
+
+const m3 = m1.dot(m2); // Returns a New Matrix
+```
+
+#### `Matrix Divide`
+``` javascript
+const m1 = new pn.Matrix([
+    [1,2],
+    [10,20]
+]);
+
+const m2 = new pn.Matrix([ 2 , 20 ]);
+
+const m3 = m1.divide(m2); // Returns a New Matrix
+```
+
+#### `Matrix Transpose`
+``` javascript
+const m1 = new Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+])
+
+const m2 = m1.transpose(); // Returns a New Matrix
+```
