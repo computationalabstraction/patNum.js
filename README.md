@@ -83,6 +83,7 @@ pn.MedianAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 ```
 
 ## Matrix
+> All Operations also work with Scalars
 
 #### `Matrix Creation`
 ``` javascript
@@ -167,11 +168,24 @@ const m3 = m1.divide(m2); // Returns a New Matrix
 
 #### `Matrix Transpose`
 ``` javascript
-const m1 = new Matrix([
+const m1 = new pn.Matrix([
     [10,20],
     [30,40],
     [50,60]
-])
+]);
 
 const m2 = m1.transpose(); // Returns a New Matrix
+```
+
+#### `Row Vector`
+``` javascript
+const m1 = new pn.Matrix([ 10, 20, 30 ]);
+```
+
+#### `Column Vector`
+``` javascript
+const m1 = new pn.Matrix([ [10], 
+                           [20], 
+                           [30]
+                         ]);
 ```
