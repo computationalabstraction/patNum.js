@@ -87,16 +87,16 @@ pn.MedianAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 #### `Matrix Creation`
 ``` javascript
 const m1 = new pn.Matrix([
- [1000,2000,3000,4000],
- [100,200,300,400]
+    [1000,2000,3000,4000],
+    [100,200,300,400]
 ]);
 ```
 
 #### `Matrix Addition`
 ``` javascript
 const m1 = new pn.Matrix([
- [1000,2000,3000,4000],
- [100,200,300,400]
+    [1000,2000,3000,4000],
+    [100,200,300,400]
 ]);
 
 const m2 = new pn.Matrix([
