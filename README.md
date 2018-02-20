@@ -24,10 +24,18 @@ pn.Range( [ 49, 50, 77, 81, 98, 110 ] ) // Returns - 61
 
 ### `AFrequency (Frequency of A Specific Number)`
 ``` javascript
-pn.AFrequency( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] , 2 ) // Returns - { Value: 2 , Occurance: 2 }
+pn.AFrequency( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] , 2 ) 
+// Returns - { Value: 2 , Occurance: 2 }
 ```
 
-### `SomeFrequencies (Frequency of some Numbers)`
+### `SomeFrequencies (Frequency of Some Numbers)`
 ``` javascript
-pn.SomeFrequencies( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] , [ 4, 2 ] ) // Returns - { Value: 2 , Occurance: 2 }
+pn.SomeFrequencies( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] , [ 4, 2 ] )
+// Returns - [ { Value: 4 , Occurance: 2 } , { Value: 2 , Occurance: 2 } ]
+```
+
+### `AllFrequencies (Frequency of All the Numbers)`
+``` javascript
+pn.AllFrequencies( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] )
+// Returns - Frequencies of all the Numbers
 ```
