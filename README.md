@@ -225,7 +225,7 @@ const m1 = new pn.Matrix([
     [50,60]
 ]);
 
-m1.randomize(0,10); // Will choose random value from 0 to 10 for all the elements of the Matrix
+m1.randomize(0,10); // Will choose a random value from 0 to 10 for all the elements of the Matrix
 m1.randomize(); // By Default range is from -1 to 1
 ```
 
