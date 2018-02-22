@@ -174,6 +174,28 @@ const m2 = new pn.Matrix([ 2 , 20 ]);
 const m3 = m1.divide(m2); // Returns a New Matrix
 ```
 
+#### `Matrix Modify`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+m1.at(1,1,100); // It will change 10 -> 100
+```
+
+#### `Matrix Map`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+const m2 = m1.map(e => e ** 2); // It will return a new Matrix
+```
+
 #### `Matrix Transpose`
 ``` javascript
 const m1 = new pn.Matrix([
@@ -183,6 +205,51 @@ const m1 = new pn.Matrix([
 ]);
 
 const m2 = m1.transpose(); // Returns a New Matrix
+```
+
+#### `Matrix Clone`
+``` javascript
+const m1 = new pn.Matrix([
+    [1,2],
+    [10,20]
+]);
+
+const m2 = m1.clone(); // Returns a New Matrix
+```
+
+#### `Matrix Randomize`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+m1.randomize(0,10); // Will choose random value from 0 to 10 for all the elements of the Matrix
+m1.randomize(); // By Default range is from -1 to 1
+```
+
+#### `Matrix Flatten`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+let am1 = m1.flatten(); // It will flatten the Matrix to [10,20,30,40,...] and return the Array
+```
+
+#### `Matrix FlatMap`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+let am1 = m1.flatMap( e => e * 2 ); 
+// It will flatten [10,20,30,40,...] and then apply the operation to each element [20,40,60,80,...] and return the Array
 ```
 
 #### `Row Vector`
