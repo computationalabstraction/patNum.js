@@ -4,7 +4,6 @@
 var Graph = require("./Graph");
 
 
-
 function AFrequency(data,val)
 {
   var count = 0;
@@ -50,6 +49,54 @@ function Mean(data)
 }
 
 
+function GeometricMean(data)
+{
+  let value = 1;
+  if(data.length > 0)
+  {
+    for(let element of data)
+    {
+      if(element > 0)
+      {
+        value *= element;
+      }
+    }
+  }
+  return Math.pow(value, 1 / data.length);
+}
+
+
+function HarmonicMean(data)
+{
+  let value = 1;
+  if(data.length > 0)
+  {
+    for(let element of data)
+    {
+      if(element > 0)
+      {
+        value += 1/element;
+      }
+    }
+  }
+  return data.length / value;
+}
+
+
+function RootMeanSquare(data)
+{
+  let value = 0;
+  if(data.length > 0)
+  {
+    for(let element of data)
+    {
+      value += element ** 2;
+    }
+  }
+  return value / data.length;
+}
+
+
 function SampleStandardDeviation(data)
 {
   var mean = Mean(data);
@@ -75,7 +122,7 @@ function PopulationStandardDeviation(data)
   {
     total += val;
   }
-  var variance = Math.sqrt(total/(deviation.length-1));
+  var variance = Math.sqrt( total / (deviation.length - 1) );
   return variance;
 }
 
@@ -137,7 +184,7 @@ function Mode(data)
 }
 
 
-function max(data)
+function Max(data)
 {
   var max = data[0];
   for(let val of data)
@@ -151,7 +198,7 @@ function max(data)
 }
 
 
-function min(data)
+function Min(data)
 {
   var min = data[0];
   for(let val of data)
@@ -164,10 +211,32 @@ function min(data)
   return min;
 }
 
+
 function Range(data)
 {
-  return max(data) - min(data);
+  return Max(data) - Min(data);
 }
+
+
+function Product(data)
+{
+  let value = 1;
+  for(let element of data)
+  {
+    value *= element;
+  }
+  return value;
+}
+
+
+function BernoulliDistribution(input)
+{
+  if(input > 0 && input < 1)
+  {
+    return [ 1 - p , p ];
+  }
+}
+
 
 // Exports ---------------------------------------------------------------------
 
@@ -175,12 +244,15 @@ function Range(data)
 module.exports.even = even;
 
 // Basic Operations
-module.exports.max = max;
-module.exports.min = min;
+module.exports.Max = Max;
+module.exports.Min = Min;
 module.exports.Range = Range;
 
 // Average Operations
 module.exports.Mean = Mean;
+module.exports.GeometricMean = GeometricMean;
+module.exports.HarmonicMean = HarmonicMean;
+module.exports.RootMeanSquare = RootMeanSquare;
 module.exports.Median = Median;
 module.exports.Mode = Mode;
 
@@ -194,3 +266,6 @@ module.exports.SampleStandardDeviation = SampleStandardDeviation;
 module.exports.PopulationStandardDeviation = PopulationStandardDeviation;
 module.exports.MeanAbsoluteDeviation = MeanAbsoluteDeviation;
 module.exports.MedianAbsoluteDeviation = MedianAbsoluteDeviation;
+
+// Distribution
+module.exports.BernoulliDistribution = BernoulliDistribution;
