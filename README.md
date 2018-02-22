@@ -185,8 +185,6 @@ const m1 = new pn.Matrix([
 const m2 = m1.transpose(); // Returns a New Matrix
 ```
 
-
-`Vector` is a Matrix internally and supports all the operation which are supported on Matrix
 #### `Row Vector`
 ``` javascript
 const m1 = pn.Vector([ 10, 20, 30 ]);
@@ -196,3 +194,4 @@ const m1 = pn.Vector([ 10, 20, 30 ]);
 ``` javascript
 const m1 = pn.ColVector([ 10, 20, 30 ]);
 ```
+###### `Vector` is internally a Matrix and supports all the operation which are supported on Matrix
