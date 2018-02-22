@@ -82,6 +82,14 @@ pn.MedianAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 // Returns - 2
 ```
 
+### Other Operations
+
+#### - `GeometricMean`
+#### - `HarmonicMean`
+#### - `RootMeanSquare`
+#### - `BernoulliDistribution`
+
+
 ## Matrix
 > All Operations also work with Scalars
 
