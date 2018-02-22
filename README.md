@@ -185,16 +185,13 @@ const m1 = new pn.Matrix([
 const m2 = m1.transpose(); // Returns a New Matrix
 ```
 
+> Vector is a Type of Matrix
 #### `Row Vector`
 ``` javascript
-const m1 = new pn.Matrix([ 10, 20, 30 ]);
+const m1 = pn.Vector([ 10, 20, 30 ]);
 ```
 
 #### `Column Vector`
 ``` javascript
-const m1 = new pn.Matrix([ 
-                           [10], 
-                           [20], 
-                           [30]
-                         ]);
+const m1 = pn.ColVector([ 10, 20, 30 ]);
 ```
