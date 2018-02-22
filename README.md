@@ -1,5 +1,5 @@
 # patNum.js
-### A Mathematics Library in Javascript
+### A Library for Mathematics in Javascript
 
 ### Example Usage
 >patNum.js provides Statistics and Matrix Operations
