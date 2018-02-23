@@ -1,10 +1,63 @@
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 class Matrix 
 {
-    constructor(array,rows=null,columns=null)
+    constructor(array,rows = null,columns = null,fill = false)
     {
-        this.matrix = array;
-        this.rows = rows;
-        this.columns = columns;
+        this.data = array;
+        if(rows && columns)
+        {
+            this.rows = rows;
+            this.columns = columns;
+            if(fill)
+            {
+                if(this.data == null || this.data == undefined)
+                {
+                    this.data = [];
+                }
+                for(let i = 0; i < rows; i++)
+                {
+                    let row = [];
+                    for(let j = 0; j < columns; j++)
+                    {
+                        row.push(0);
+                    }
+                    this.data.push(row);
+                }
+            }
+        }
+        else
+        {
+            this.rows = 0;
+            this.columns = 0;
+            for(let row of this.data)
+            {
+                if(typeof row == "number")
+                {
+                    this.columns++;
+                    if(this.rows == 0)
+                    {
+                        this.rows = 1; 
+                    }
+                }
+                else if(Array.isArray(this.data))
+                {
+                    this.rows++;
+                    if(this.columns == 0)
+                    {
+                        this.columns = row.length;
+                    }
+                }
+            }
+        }
+    }
+
+    at(row,column,value)
+    {
+        this.data[row - 1][column - 1] = value;
+        return this;
     }
 
     add(matrix)
@@ -12,7 +65,7 @@ class Matrix
         return this.operateWith(matrix, (n1,n2) => n1 + n2 );
     }
 
-    substract(matrix)
+    subtract(matrix)
     {
         return this.operateWith(matrix, (n1,n2) => n1 - n2 );
     }
@@ -27,18 +80,98 @@ class Matrix
         return this.operateWith(matrix, (n1,n2) => n1 / n2 );
     }
 
+    randomize(min = -1 , max = 1)
+    {
+        for(let rows of this.data)
+        {
+            for(let element in rows)
+            {
+                rows[element] = random(min,max);
+            }
+        }
+        return this;
+    }
+
     dot(matrix)
     {
-        let columns = this.data[0].length;
-        let rows = matrix.data.length;
-        if(column == rows)
+        if(matrix instanceof Matrix)
         {
-
+            let rows = this.rows;
+            let columns = matrix.columns;
+            let newMatrix = new Matrix(null,rows,columns,true);
+            if(this.columns == matrix.rows)
+            {
+                let m1 = this.data;
+                let m2 = matrix.data;
+                for(let i = 0; i < this.rows; i++)
+                {
+                    for(let j = 0; j < matrix.columns; j++)
+                    {
+                        let sum = 0;
+                        for(let k = 0; k < matrix.rows; k++)
+                        {
+                            sum += m1[i][k] * m2[k][j];
+                        } 
+                        newMatrix.data[i][j] = sum;
+                    }
+                    
+                }
+                return newMatrix;
+            }
+            return this;
         }
+        return this;
+    }
+
+    transpose()
+    {
+        let newMatrix = new Matrix(null,this.columns,this.rows,true)
+        for(let i = 0; i < this.rows; i++)
+        {
+            for(let j = 0; j < this.columns; j++)
+            {
+                newMatrix.data[j][i] = this.data[i][j];
+            }
+        }
+        return newMatrix;
+    }
+
+    flatMap(map)
+    {
+        let arr = [];
+        for(let rows of this.data)
+        {
+            for(let element of rows)
+            {
+                if(map)
+                {
+                    arr.push(map(element));
+                }
+                else
+                {
+                    arr.push(element);
+                }
+            }
+        }
+        return arr;
+    }
+
+    flatten()
+    {
+        let arr = [];
+        for(let rows of this.data)
+        {
+            for(let element of rows)
+            {
+                arr.push(element);
+            }
+        }
+        return arr;
     }
 
     transform(operation)
     {
+        let column = 0;
         for(let row of this.data)
         {
             if( Array.isArray(row) )
@@ -52,8 +185,31 @@ class Matrix
             {
                 this.data[row] = operation(this.data[row]);
             }
+            column++;
         }
         return this;
+    }
+
+    map(operation)
+    {
+        let newMatrix = new Matrix(null,this.rows,this.columns,true);
+        let column = 0;
+        for(let row of newMatrix.data)
+        {
+            if( Array.isArray(row) )
+            {
+                for(let element in row)
+                {
+                    row[element] = operation(row[element]);
+                }
+            }
+            else if(typeof row == "number")
+            {
+                newMatrix[row] = operation(this.data[row]);
+            }
+            column++;
+        }
+        return newMatrix;
     }
 
     row(index,operation)
@@ -103,7 +259,7 @@ class Matrix
         else if(type == 2)
         {
             let diagonal = this.data.length;
-            for(let row of this.data.map(e=>e).reverse())
+            for(let row of this.data.map(e => e).reverse())
             {
                 row[diagonal] = operation(row[diagonal]);
                 diagonal--;
@@ -140,6 +296,20 @@ class Matrix
         if(matrix instanceof Matrix)
         {   
             matrix = matrix.data
+        }
+        if(typeof matrix == "number")
+        {
+            
+            for(let row of this.data)
+            {
+                let newRow = [];
+                for(let column of row)
+                {
+                    newRow.push(operation(column,matrix));
+                }
+                newMatrix.push(newRow);
+            }
+            
         }
         for(let row in this.data)
         {
@@ -189,4 +359,27 @@ class Matrix
     }
 }
 
-module.exports = Matrix;
+
+function Vector(array)
+{
+    return new Matrix(array);
+}
+
+function ColVector(array)
+{
+    let output = [];
+    for(let i of array)
+    {
+        output.push([i]);
+    }
+    return new Matrix(output);
+}
+
+// Exports ---------------------------------------------------------------------
+
+// Matrix
+module.exports.Matrix = Matrix;
+
+// Vectors
+module.exports.Vector = Vector;
+module.exports.ColVector = ColVector;
