@@ -261,4 +261,4 @@ const m1 = pn.Vector([ 10, 20, 30 ]);
 ``` javascript
 const m1 = pn.ColVector([ 10, 20, 30 ]);
 ```
-###### `Vector` is internally a Matrix and supports all the operation which are supported on Matrix
+###### `Vector` is internally a Matrix and supports all the operations which are supported on Matrix
