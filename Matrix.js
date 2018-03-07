@@ -4,6 +4,7 @@ function random(min, max) {
 
 class Matrix 
 {
+<<<<<<< HEAD
     // Static Methods
 
     static of(rows,columns)
@@ -89,6 +90,62 @@ class Matrix
     {
         this.transform( (v) => n );
         return this;
+=======
+    constructor(array,rows = null,columns = null,fill = false)
+    {
+        this.data = array;
+        if(rows && columns)
+        {
+            this.rows = rows;
+            this.columns = columns;
+            if(fill)
+            {
+                if(this.data == null || this.data == undefined)
+                {
+                    this.data = [];
+                }
+                for(let i = 0; i < rows; i++)
+                {
+                    let row = [];
+                    for(let j = 0; j < columns; j++)
+                    {
+                        row.push(0);
+                    }
+                    this.data.push(row);
+                }
+            }
+        }
+        else
+        {
+            this.rows = 0;
+            this.columns = 0;
+            for(let row of this.data)
+            {
+                if(typeof row == "number")
+                {
+                    this.columns++;
+                    if(this.rows == 0)
+                    {
+                        this.rows = 1; 
+                    }
+                }
+                else if(Array.isArray(this.data))
+                {
+                    this.rows++;
+                    if(this.columns == 0)
+                    {
+                        this.columns = row.length;
+                    }
+                }
+            }
+        }
+    }
+
+    at(row,column,value)
+    {
+        this.data[row - 1][column - 1] = value;
+        return this;
+>>>>>>> 6cc110859711c1313354be7c124798cebd0169ba
     }
 
     add(matrix)
@@ -158,6 +215,18 @@ class Matrix
     {
         let newMatrix = new Matrix(null,this.columns,this.rows,true)
         for(let i = 0; i < this.rows; i++)
+<<<<<<< HEAD
+        {
+            for(let j = 0; j < this.columns; j++)
+            {
+                newMatrix.data[j][i] = this.data[i][j];
+            }
+        }
+        return newMatrix;
+    }
+
+    flatMap(map)
+=======
         {
             for(let j = 0; j < this.columns; j++)
             {
@@ -188,6 +257,28 @@ class Matrix
     }
 
     flatten()
+>>>>>>> 6cc110859711c1313354be7c124798cebd0169ba
+    {
+        let arr = [];
+        for(let rows of this.data)
+        {
+            for(let element of rows)
+            {
+<<<<<<< HEAD
+                if(map)
+                {
+                    arr.push(map(element));
+                }
+                else
+                {
+                    arr.push(element);
+                }
+            }
+        }
+        return arr;
+    }
+
+    flatten()
     {
         let arr = [];
         for(let rows of this.data)
@@ -198,6 +289,12 @@ class Matrix
             }
         }
         return arr;
+=======
+                arr.push(element);
+            }
+        }
+        return arr;
+>>>>>>> 6cc110859711c1313354be7c124798cebd0169ba
     }
 
     transform(operation)
@@ -406,7 +503,10 @@ function ColVector(array)
     return new Matrix(output);
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6cc110859711c1313354be7c124798cebd0169ba
 // Exports ---------------------------------------------------------------------
 
 // Matrix

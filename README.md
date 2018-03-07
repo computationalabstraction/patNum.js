@@ -1,123 +1,266 @@
 # patNum.js
-### A Mathematics/Statistics Library in Javascript
+### A Library for Mathematics in Javascript
 
+### Example Usage
+>patNum.js provides Statistics and Matrix Operations
 
+## Statistics
 
-## Example Usage
+#### `Min (Lowest Observation)`
 ``` javascript
-var stats = require("./Stats");
-var Matrix = require("./Matrix");
-var print = require('./Print');
+pn.Min( [ 13, 22, 26, 38, 36, 42 ] ); // Returns - 13
+```
 
-var data = [11,2,45,5,3,2,4,11,4,3,5];
+#### `Max (Highest Observation)`
+``` javascript
+pn.Max( [ 49, 50, 77, 81, 98, 110 ] ); // Returns - 110
+```
 
-// Min
-print("Min");
-print(stats.min(data));
+#### `Range (Span of Data)`
+``` javascript
+// Range = Max - Min
+pn.Range( [ 49, 50, 77, 81, 98, 110 ] ); // Returns - 61
+```
 
-// Max
-print("Max");
-print(stats.max(data));
+#### `AFrequency (Frequency of A Specific Number)`
+``` javascript
+pn.AFrequency( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] , 2 );
+// Returns - { Value: 2 , Occurance: 2 }
+```
 
-// Range
-print("Range");
-print(stats.Range(data))
+#### `SomeFrequencies (Frequency of Some Numbers)`
+``` javascript
+pn.SomeFrequencies( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] , [ 4, 2 ] );
+// Returns - [ { Value: 4 , Occurance: 2 } , { Value: 2 , Occurance: 2 } ]
+```
 
-// Frequency for A Number
-print("A Frequency");
-print(stats.AFrequency(data,2));
-print(stats.AFrequency(data,4));
-print(stats.AFrequency(data,45));
-print(stats.AFrequency(data,11));
+#### `AllFrequencies (Frequency of All the Numbers)`
+``` javascript
+pn.AllFrequencies( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - Frequencies of all the Numbers
+```
 
-// Frequency for Some Number
-print("Some Frequencies");
-print(stats.SomeFrequencies(data,[4,2]));
+#### `Mean (Central Tendency)`
+``` javascript
+pn.Mean( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 8.63
+```
 
-// Frequency for All Number
-print("All Frequencies");
-print(stats.AllFrequencies(data));
+#### `Medain (Central Tendency)`
+``` javascript
+pn.Median( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 4
+```
 
-// Mean
-print("Mean");
-print(stats.Mean(data));
+#### `Mode (Central Tendency)`
+``` javascript
+pn.Mode( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 11
+```
 
-// Medain
-print("Medain");
-print(stats.Median(data));
+#### `SampleStandardDeviation (Deviation)`
+``` javascript
+pn.SampleStandardDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 12.46
+```
 
-// Mode
-print("Mode");
-print(stats.Mode(data));
+#### `PopulationStandardDeviation (Deviation)`
+``` javascript
+pn.PopulationStandardDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 11.88
+```
 
-// Sample Standard Deviation
-print("Sample Standard Deviation")
-print(stats.SampleStandardDeviation(data))
+#### `MeanAbsoluteDeviation (Deviation)`
+``` javascript
+pn.MeanAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 7.47
+```
 
-// Population Standard Deviation
-print("Population Standard Deviation")
-print(stats.PopulationStandardDeviation(data))
+#### `MedianAbsoluteDeviation (Deviation)`
+``` javascript
+pn.MedianAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
+// Returns - 2
+```
 
-// Mean Absolute Deviation
-print("Mean Absolute Deviation")
-print(stats.MeanAbsoluteDeviation(data))
+### Other Operations
 
-// Median Absolute Deviation
-print("Median Absolute Deviation")
-print(stats.MedianAbsoluteDeviation(data))
+#### - `GeometricMean`
+#### - `HarmonicMean`
+#### - `RootMeanSquare`
+#### - `SampleVariance`
+#### - `PopulationVariance`
+#### - `BernoulliDistribution`
 
-// Matrix Add
-let m1 = new Matrix([
+
+## Matrix
+> All Operations also work with Scalars
+
+#### `Matrix Creation`
+``` javascript
+const m1 = new pn.Matrix([
+    [1000,2000,3000,4000],
+    [100,200,300,400]
+]);
+```
+
+#### `Matrix Addition`
+``` javascript
+const m1 = new pn.Matrix([
     [1000,2000,3000,4000],
     [100,200,300,400]
 ]);
 
-
-let m2 = new Matrix([
+const m2 = new pn.Matrix([
     [100,200,300,400],
     [1000,2000,3000,4000]
 ]);
 
-print(m1.add(m2));
+const m3 = m1.add(m2); // Returns a New Matrix
+```
 
-
-// Matrix Substract
-m1 = new Matrix([
+#### `Matrix Subtraction`
+``` javascript
+const m1 = new pn.Matrix([
     [10,20],
     [100,200]
 ]);
 
-m2 = new Matrix([
+const m2 = new pn.Matrix([
     [100,200,300,400],
     [1000,2000,3000,4000]
 ]);
 
-print(m1.substract(m2));
+const m3 = m1.subtract(m2); // Returns a New Matrix
+```
 
-// Hadamard Product
-m1 = new Matrix([
+#### `Matrix Hadamard Multiply`
+``` javascript
+const m1 = new pn.Matrix([
     [1,2],
     [10,20]
 ]);
 
-m2 = new Matrix([
+const m2 = new pn.Matrix([
     [5,10],
     [50,100]
 ]);
 
-// Currently Supports Hadamard product
-print(m1.multiply(m2));
+const m3 = m1.multiply(m2); // Returns a New Matrix
+```
 
+#### `Matrix Dot Product (Matrix Linear Multiplication)`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+])
 
-// Matrix Divide
-m1 = new Matrix([
+const m2 = new pn.Matrix([
+    [10,20,30],
+    [40,50,60]
+])
+
+const m3 = m1.dot(m2); // Returns a New Matrix
+```
+
+#### `Matrix Divide`
+``` javascript
+const m1 = new pn.Matrix([
     [1,2],
     [10,20]
 ]);
 
-m2 = new Matrix([ 2 , 20 ]);
+const m2 = new pn.Matrix([ 2 , 20 ]);
 
-console.log(m1.divide(m2));
-
-// Matrix also supports Scalar Operations
+const m3 = m1.divide(m2); // Returns a New Matrix
 ```
+
+#### `Matrix Modify`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+m1.at(1,1,100); // It will change 10 -> 100
+```
+
+#### `Matrix Map`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+const m2 = m1.map(e => e ** 2); // It will return a new Matrix
+```
+
+#### `Matrix Transpose`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+const m2 = m1.transpose(); // Returns a New Matrix
+```
+
+#### `Matrix Clone`
+``` javascript
+const m1 = new pn.Matrix([
+    [1,2],
+    [10,20]
+]);
+
+const m2 = m1.clone(); // Returns a New Matrix
+```
+
+#### `Matrix Randomize`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+m1.randomize(0,10); // Will choose a random value from 0 to 10 for all the elements of the Matrix
+m1.randomize(); // By Default range is from -1 to 1
+```
+
+#### `Matrix Flatten`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+let am1 = m1.flatten(); // It will flatten the Matrix to [10,20,30,40,...] and return the Array
+```
+
+#### `Matrix FlatMap`
+``` javascript
+const m1 = new pn.Matrix([
+    [10,20],
+    [30,40],
+    [50,60]
+]);
+
+let am1 = m1.flatMap( e => e * 2 );
+// It will flatten [10,20,30,40,...] and then apply the operation to each element [20,40,60,80,...] and return the Array
+```
+
+#### `Row Vector`
+``` javascript
+const m1 = pn.Vector([ 10, 20, 30 ]);
+```
+
+#### `Column Vector`
+``` javascript
+const m1 = pn.ColVector([ 10, 20, 30 ]);
+```
+###### `Vector` is internally a Matrix and supports all the operations which are supported on Matrix
