@@ -61,13 +61,13 @@ pn.Mode( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 #### `SampleStandardDeviation (Deviation)`
 ``` javascript
 pn.SampleStandardDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
-// Returns - 11.88
+// Returns - 12.46
 ```
 
 #### `PopulationStandardDeviation (Deviation)`
 ``` javascript
 pn.PopulationStandardDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
-// Returns - 12.46
+// Returns - 11.88
 ```
 
 #### `MeanAbsoluteDeviation (Deviation)`
@@ -87,6 +87,8 @@ pn.MedianAbsoluteDeviation( [ 11, 2, 45, 5, 3, 2, 4, 11, 4, 3, 5 ] );
 #### - `GeometricMean`
 #### - `HarmonicMean`
 #### - `RootMeanSquare`
+#### - `SampleVariance`
+#### - `PopulationVariance`
 #### - `BernoulliDistribution`
 
 
