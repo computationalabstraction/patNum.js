@@ -96,8 +96,34 @@ function RootMeanSquare(data)
   return value / data.length;
 }
 
+function PopulationVariance(data)
+{
+  const mean = Mean(data);
+  const deviation = [];
+  for(let val of data) deviation.push( Math.pow( (val - mean) , 2) );
+  let total = 0;
+  for(let val of deviation)
+  {
+    total += val;
+  }
+  return Math.sqrt( Mean(deviation) );
+}
 
-function SampleStandardDeviation(data)
+function SampleVariance(data)
+{
+  const mean = Mean(data);
+  const deviation = [];
+  for(let val of data) deviation.push( Math.pow( (val - mean) , 2) );
+  let total = 0;
+  for(let val of deviation)
+  {
+    total += val;
+  }
+  return Math.sqrt( total / (deviation.length - 1) );
+}
+
+
+function PopulationStandardDeviation(data)
 {
   var mean = Mean(data);
   var deviation = [];
@@ -107,14 +133,9 @@ function SampleStandardDeviation(data)
 }
 
 
-function PopulationStandardDeviation(data)
+function SampleStandardDeviation(data)
 {
-  var total = 0;
-  for(let val of data)
-  {
-    total += val;
-  }
-  var mean = total/data.length;
+  var mean = Mean(data);
   var deviation = [];
   for(let val of data) deviation.push( Math.pow(val - mean, 2) );
   var total = 0;
