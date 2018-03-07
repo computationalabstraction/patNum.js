@@ -274,6 +274,8 @@ module.exports.Mean = Mean;
 module.exports.GeometricMean = GeometricMean;
 module.exports.HarmonicMean = HarmonicMean;
 module.exports.RootMeanSquare = RootMeanSquare;
+module.exports.PopulationVariance = PopulationVariance;
+module.exports.SampleVariance = SampleVariance;
 module.exports.Median = Median;
 module.exports.Mode = Mode;
 

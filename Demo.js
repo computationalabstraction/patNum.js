@@ -1,7 +1,4 @@
 var stats = require("./Stats");
-var FunctionRecord = require("./DataUnit").FunctionRecord;
-var FunctionTable = require("./Function").FunctionTable;
-var Matrix = require("./Matrix");
 var print = require('./Print');
 
 var data = [11,2,45,5,3,2,4,11,4,3,5];
@@ -61,85 +58,92 @@ print(stats.MeanAbsoluteDeviation(data))
 print("Median Absolute Deviation")
 print(stats.MedianAbsoluteDeviation(data))
 
-//Function Table
-var f1 = new FunctionTable(
-    new FunctionRecord(1,10),
-    new FunctionRecord(2,20),
-    new FunctionRecord(3,30)
-);
 
-// f(2)
-print(f1.of(2));
-
-//printing function table
-f1.table.forEach(element => {
-    print(element);
-});
-
-//printing inverse of function table
-f1.inverse().table.forEach(element => {
-    print(element);
-});
-
-// Matrix Add
-let m1 = new Matrix([
-    [1000,2000,3000,4000],
-    [100,200,300,400]
-]);
+// var FunctionRecord = require("./DataUnit").FunctionRecord;
+// var FunctionTable = require("./Function").FunctionTable;
+// var Matrix = require("./Matrix");
 
 
-let m2 = new Matrix([
-    [100,200,300,400],
-    [1000,2000,3000,4000]
-]);
+// //Function Table
+// var ft1 = new FunctionTable(
+//     new FunctionRecord(1,10),
+//     new FunctionRecord(2,20),
+//     new FunctionRecord(3,30)
+// );
 
-print(m1.add(m2));
+// // f(2)
+// print(ft1.of(2));
 
+// //printing function table
+// ft1.table.forEach(element => {
+//     print(element);
+// });
 
-// Matrix Substract
-m1 = new Matrix([
-    [10,20],
-    [100,200]
-]);
+// //printing inverse of function table
+// ft1.inverse().table.forEach(element => {
+//     print(element);
+// });
 
-m2 = new Matrix([
-    [100,200,300,400],
-    [1000,2000,3000,4000]
-]);
-
-print(m1.substract(m2));
-
-// Matrix Multiply
-m1 = new Matrix([
-    [1,2],
-    [10,20]
-]);
-
-m2 = new Matrix([
-    [5,10],
-    [50,100]
-]);
-
-print(m1.multiply(m2));
+// // Matrix Add
+// let m1 = new Matrix([
+//     [1000,2000,3000,4000],
+//     [100,200,300,400]
+// ]);
 
 
-// Matrix Divide
-m1 = new Matrix([
-    [1,2],
-    [10,20]
-]);
+// let m2 = new Matrix([
+//     [100,200,300,400],
+//     [1000,2000,3000,4000]
+// ]);
 
-m2 = new Matrix([2,20]);
+// // print(m1.add(m2));
 
-console.log(m1.divide(m2));
 
-// Diagonal Operation
-m2 = new Matrix([
-    [10,20,30,40],
-    [100,200,300,400],
-    [1000,2000,3000,4000],
-    [10000,20000,30000,40000]
-]);
+// // Matrix Subtract
+// m1 = new Matrix([
+//     [10,20],
+//     [100,200]
+// ]);
 
-console.log(m2.clone().diagonal(1,n => n * 2).row(1,n => n / 2).transform(n => n ** 2));
-console.log(m2);
+// m2 = new Matrix([
+//     [100,200,300,400],
+//     [1000,2000,3000,4000]
+// ]);
+
+// print(m1.subtract(m2));
+
+// // Matrix Multiply
+// m1 = new Matrix([
+//     [1,2],
+//     [10,20]
+// ]);
+
+// m2 = new Matrix([
+//     [5,10],
+//     [50,100]
+// ]);
+
+// print(m1.multiply(m2));
+
+
+// // Matrix Divide
+// m1 = new Matrix([
+//     [1,2],
+//     [10,20]
+// ]);
+
+// m2 = new Matrix([2,20]);
+
+// console.log(m1.divide(m2));
+
+// // Transformation Operations
+// m2 = new Matrix([
+//     [10,20,30,40],
+//     [100,200,300,400],
+//     [1000,2000,3000,4000],
+//     [10000,20000,30000,40000]
+// ]);
+
+// // Chainable Functional Tranformation Operations on an Matrix
+// console.log(m2.clone().diagonal(1,n => n * 2).row(1,n => n / 2).transform(n => n ** 2));
+// console.log(m2);

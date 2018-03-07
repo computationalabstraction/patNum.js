@@ -4,11 +4,12 @@
   "description": "A Statistics Library",
   "main": "Demo.js",
   "scripts": {
-    "start":"node ."
+    "start": "node ."
   },
   "author": "Archan Patkar",
   "license": "MIT",
   "dependencies": {
-    "prettyjson": "^1.2.1"
+    "prettyjson": "^1.2.1",
+    "underscore": "^1.8.3"
   }
 }

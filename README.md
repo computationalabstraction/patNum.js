@@ -115,7 +115,7 @@ m1 = new Matrix([
     [10,20]
 ]);
 
-m2 = new Matrix([2,20]);
+m2 = new Matrix([ 2 , 20 ]);
 
 console.log(m1.divide(m2));
 

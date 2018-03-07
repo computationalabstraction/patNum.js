@@ -4,6 +4,26 @@ function random(min, max) {
 
 class Matrix 
 {
+    // Static Methods
+
+    static of(rows,columns)
+    {
+        const m = new Matrix(null,rows,columns,true);
+        return m;
+    }
+
+    static random(rows,columns)
+    {
+        const m = new Matrix(null,rows,columns,true);
+        m.randomize();
+        return m;
+    }
+
+    static from(array)
+    {
+        return new Matrix(array);
+    }
+
     constructor(array,rows = null,columns = null,fill = false)
     {
         this.data = array;
@@ -54,9 +74,20 @@ class Matrix
         }
     }
 
-    at(row,column,value)
+    to(row,column,value)
     {
         this.data[row - 1][column - 1] = value;
+        return this;
+    }
+
+    at(row,column)
+    {
+        return this.data[row - 1][column - 1];;
+    }
+
+    fill(n)
+    {
+        this.transform( (v) => n );
         return this;
     }
 
@@ -374,6 +405,7 @@ function ColVector(array)
     }
     return new Matrix(output);
 }
+
 
 // Exports ---------------------------------------------------------------------
 
