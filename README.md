@@ -1,4 +1,5 @@
 # patNum.js
+<img src="./patnumlogo.png">
 ### A Library for Mathematics in Javascript
 
 ### Example Usage
