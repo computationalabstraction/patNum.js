@@ -1,9 +1,10 @@
 # <img src="./patnumlogo.png">
 
 ### A Library for Mathematics in Javascript
-<br>
 
-### `Documentation`
+### patNum.js provides the following datastructure and operations
+### 1. `Statistics`
+### 2. `Matrices`
 
 ## Statistics
 
