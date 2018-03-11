@@ -2,6 +2,7 @@
 
 ### A Library for Mathematics in Javascript
 <br>
+
 ### `Documentation`
 
 ## Statistics
