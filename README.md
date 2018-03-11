@@ -1,8 +1,8 @@
 # <img src="./patnumlogo.png">
 
 ### A Library for Mathematics in Javascript
-
-### Documentation
+<br>
+### `Documentation`
 
 ## Statistics
 
