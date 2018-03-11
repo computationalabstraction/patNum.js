@@ -2,7 +2,7 @@
 
 ### A Library for Mathematics in Javascript
 
-### patNum.js provides the following datastructure and operations
+### patNum.js provides the following operations
 ### 1. `Statistics`
 ### 2. `Matrices`
 
