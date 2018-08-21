@@ -5,11 +5,11 @@ var data = [11,2,45,5,3,2,4,11,4,3,5];
 
 // Min
 print("Min");
-print(stats.min(data));
+print(stats.Min(data));
 
 // Max
 print("Max");
-print(stats.max(data));
+print(stats.Max(data));
 
 // Range
 print("Range");
