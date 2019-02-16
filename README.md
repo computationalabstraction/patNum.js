@@ -2,9 +2,11 @@
 
 ### A Library for Mathematics in Javascript
 
-### patNum.js supports
+### patNum.js provides constructs to work with-
 ### 1. `Statistics`
 ### 2. `Matrices`
+### 3. `Complex Numbers`
+### 4. `Waves`
 
 ## Statistics
 
@@ -266,3 +268,224 @@ const m1 = pn.Vector([ 10, 20, 30 ]);
 const m1 = pn.ColVector([ 10, 20, 30 ]);
 ```
 ###### `Vector` is internally a Matrix and supports all the operations which are supported on Matrix
+
+## Complex Numbers
+
+#### `Complex Number Creation`
+```javascript
+const c1 = pn.Complex(10,2); // 10(Real) , 2(Coefficient of i)
+```
+
+#### `Complex toString`
+```javascript
+const c1 = pn.Complex(10,2);
+console.log(c1.toString()); // -> 10 + 2i
+```
+
+### `Note:` Any Operation which transforms Complex Number in any way returns a new Complex Object
+
+#### `Complex add`
+```javascript
+const c1 = pn.Complex(10,2);
+const c2 = pn.Complex(5,3);
+console.log(c1.add(c2).toString()); 
+```
+
+#### `Complex substract`
+```javascript
+const c1 = pn.Complex(10,2);
+const c2 = pn.Complex(5,3);
+console.log(c1.substract(c2).toString()); 
+```
+
+#### `Complex multiply`
+```javascript
+const c1 = new Complex(5,7);
+const c2 = new Complex(-6);
+console.log(c1.multiply(c2).toString());
+```
+
+#### `Complex divide`
+```javascript
+const c1 = new Complex(5,10);
+console.log(c1.divide(2).toString());
+```
+
+#### `Complex pow`
+```javascript
+const c1 = new Complex(5,10);
+console.log(c1.pow(2).toString());
+```
+
+#### `Complex sqrt`
+```javascript
+const c1 = new Complex(4,4);
+console.log(c1.sqrt().toString());
+```
+
+#### `Complex exp`
+```javascript
+const c1 = new Complex(4,4);
+console.log(c1.exp().toString());
+```
+
+#### `Complex log`
+```javascript
+const c1 = new Complex(10,10);
+console.log(c1.log().toString());
+```
+
+#### `Complex sin`
+```javascript
+const c1 = new Complex(8,9);
+console.log(c1.sin().toString());
+```
+
+#### `Complex cos`
+```javascript
+const c1 = new Complex(1,7);
+console.log(c1.cos().toString());
+```
+
+#### `Complex sinh`
+```javascript
+const c1 = new Complex(8,9);
+console.log(c1.sinh().toString());
+```
+
+#### `Complex cosh`
+```javascript
+const c1 = new Complex(1,7);
+console.log(c1.cosh().toString());
+```
+
+#### `Complex angle (Angle of Complex Number in Degrees)`
+```javascript
+const c1 = new Complex(6,2);
+console.log(c1.angle());
+```
+
+#### `Complex mod`
+```javascript
+const c1 = new Complex(-5,10);
+console.log(c1.mod().toString());
+```
+
+#### `Complex conjugate`
+```javascript
+const c1 = new Complex(5,10);
+console.log(c1.conjugate().toString());
+```
+
+#### `Complex addinv (Additive Inverse)`
+```javascript
+const c1 = new Complex(5,10);
+console.log(c1.addinv().toString());
+```
+
+#### `Complex mulinv (Multiplicative Inverse)`
+```javascript
+const c1 = new Complex(5,10);
+console.log(c1.mulinv().toString());
+```
+
+#### `Complex toArray`
+```javascript
+const c1 = new Complex(5,10);
+console.log(c1.toArray());
+```
+
+## Waves
+
+#### `Simple Harmonic Motion Wave`
+```javascript
+const y = new OscillatorWave({ 
+    amplitude:0.5,
+    period:3.2
+});
+console.log(y.of(4)); 
+```
+
+#### `General Wave (One Dimensional Harmonic Motion Wave which Propogates)`
+```javascript
+const z = new Wave({
+    amplitude:3,
+    wavelength:4,
+    period:8,
+    start:3
+});
+console.log(z.of(2,1)); 
+```
+
+#### `Superpostion of General Waves`
+```javascript
+const z = new Wave({
+    amplitude:3,
+    wavelength:4,
+    period:8,
+    start:3
+});
+
+// You can pass variable number of waves as paramenters while calling superimpose
+const sz = z.superimpose(z); 
+// superimpose method returns a Superposition Object which will be internally an amalgamation of all the waves imposed on the original wave
+
+// Superposition Object internally keeps a list with references to all the waves of which then combine to create Superposition. Superposition follows the same protocol/interface as Wave so it can be used in a composite fashion shown in the next example
+
+// Will amplify the original wave by the factor of 2
+console.log(sz.of(2,1)); 
+```
+
+#### `Composite Superpostion`
+```javascript
+const x = new Wave({
+    amplitude:3,
+    wavelength:4,
+    period:8,
+    start:3
+});
+
+const sx = x.superimpose(x); // Will amplify the original wave by the factor of 2
+
+const z = new Wave({
+    amplitude:5,
+    wavelength:2,
+    period:4,
+    start:5
+});
+
+const sz = z.superimpose(z,sx); // Can also pass Superpositions Instances 
+
+console.log(sz.of(2,1)); 
+```
+
+### `Composite Superpostion example with phase shift`
+```javascript
+const w1 = new Wave({
+    amplitude:3,
+    wavelength:4,
+    period:8,
+    start:1
+});
+
+const w2 = new Wave({
+    amplitude:3,
+    wavelength:4,
+    period:8,
+    start:1,
+    shift:180
+});
+
+const sw = w1.superimpose(w1,w1,w2);
+
+const w3 = new Wave({
+    amplitude:5,
+    wavelength:2,
+    period:3,
+    start:1
+});
+
+const ssw = w3.superimpose(w3,sw);
+
+console.log(ssw.of(2,0)); // It will be 3 + 3 + 3 - 3 + 5 + 5 = 16 ( Adding the Amplitudes )
+```
