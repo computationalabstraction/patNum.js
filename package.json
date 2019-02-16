@@ -1,7 +1,7 @@
 {
-  "name": "stats.js",
+  "name": "patnum.js",
   "version": "0.0.1",
-  "description": "A Statistics Library",
+  "description": "A Library for Mathematics",
   "main": "Demo.js",
   "scripts": {
     "start": "node ."
@@ -9,6 +9,7 @@
   "author": "Archan Patkar",
   "license": "MIT",
   "dependencies": {
+    "beepbeep": "^1.2.2",
     "prettyjson": "^1.2.1",
     "underscore": "^1.8.3"
   }
