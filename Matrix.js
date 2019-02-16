@@ -411,6 +411,9 @@ function ColVector(array)
 
 // Matrix
 module.exports.Matrix = Matrix;
+module.exports.of = Matrix.of;
+module.exports.random = Matrix.random;
+module.exports.from = Matrix.from;
 
 // Vectors
 module.exports.Vector = Vector;
