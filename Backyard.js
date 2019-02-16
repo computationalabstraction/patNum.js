@@ -38,3 +38,22 @@
 // console.log(predict(myline2,30));
 // console.log(predict(myline2,40));
 // console.log(predict(myline2,80));
+
+            // if(this.a && this.b && n.a && n.b)
+            // {
+            // ...
+            // }
+            // else if(this.b && n.a && n.b)
+            // {
+            //     temp.a = ((n.b * this.b) * -1);
+            //     temp.b = n.a * this.b;
+            // }
+            // else if(this.a && this.b && n.b)
+            // {
+            //     temp.a = ((this.b * n.b) * -1);
+            //     temp.b = this.a * n.b;
+            // }
+            // else if(this.b && n.b)
+            // {
+            //     temp.a = ((this.b * n.b) * - 1);
+            // }
