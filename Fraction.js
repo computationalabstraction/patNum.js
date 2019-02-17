@@ -51,7 +51,7 @@ class Fraction
             return temp;
         }
     }
-
+    
     multiply(x)
     {
         if(typeof(x) == "Number")
