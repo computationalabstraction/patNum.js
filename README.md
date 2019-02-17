@@ -298,7 +298,7 @@ console.log(f3.toString());
 ``` javascript
 const f1 = pn.fraction(4,3);
 const f2 = pn.fraction(8,9);
-const f3 = f1.add(f2);
+const f3 = f1.substract(f2);
 console.log(f3.toString());
 ```
 
@@ -306,7 +306,7 @@ console.log(f3.toString());
 ``` javascript
 const f1 = pn.fraction(5,2);
 const f2 = pn.fraction(4,8);
-const f3 = f1.add(f2);
+const f3 = f1.multiply(f2);
 console.log(f3.toString());
 ```
 
@@ -314,7 +314,7 @@ console.log(f3.toString());
 ``` javascript
 const f1 = pn.fraction(5,10);
 const f2 = pn.fraction(2,5);
-const f3 = f1.add(f2);
+const f3 = f1.divide(f2);
 console.log(f3.toString());
 ```
 
