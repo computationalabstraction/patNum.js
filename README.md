@@ -508,7 +508,7 @@ const sz = z.superimpose(z,sx); // Can also pass Superpositions Instances
 console.log(sz.of(2,1)); 
 ```
 
-### `Composite Superpostion example with phase shift`
+#### `Composite Superpostion example with phase shift`
 ```javascript
 const w1 = pn.wave({
     amplitude:3,
