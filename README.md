@@ -11,11 +11,7 @@
 ### 6. `Complex Numbers`
 ### 7. `Waves`
 ### 8. `Game Theory`
-### 9. `Geometry`
-    1. `1d Geometry`
-    2. `2d Geometry`
-    3. `3d Geometry`
-    4. `4d Geometry`
+### 9. `Geometry(1d,2d,3d,4d)`
 
 
 ## Statistics
