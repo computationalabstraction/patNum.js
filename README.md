@@ -12,10 +12,10 @@
 ### 7. `Waves`
 ### 8. `Game Theory`
 ### 9. `Geometry`
-        i. `1d Geometry`
-        ii. `2d Geometry`
-        iii. `3d Geometry`
-        iv. `4d Geometry`
+        1. `1d Geometry`
+        2. `2d Geometry`
+        3. `3d Geometry`
+        4. `4d Geometry`
 
 
 ## Statistics
