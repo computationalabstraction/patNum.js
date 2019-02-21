@@ -102,11 +102,12 @@ function minDistance(a,b)
         let shortest = 0;
         for(let p2 of b)
         {
-            dis = distance(p1,p2);
+            let dis = distance(p1,p2);
             if(dis < shortest) shortest = dis;
         }
-        if(h > shortest) h = shortest;
+        if(dis > shortest) h = shortest;
     }
+    return h;
 }
 
 function hausdorffDistance(a,b)
@@ -117,11 +118,12 @@ function hausdorffDistance(a,b)
         let shortest = 0;
         for(let p2 of b)
         {
-            dis = distance(p1,p2);
+            let dis = distance(p1,p2);
             if(dis < shortest) shortest = dis;
         }
         if(shortest > h) h = shortest;
     }
+    return h;
 }
 
 function nndist(...points)
