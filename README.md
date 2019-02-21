@@ -321,6 +321,21 @@ const f3 = f1.divide(f2);
 console.log(f3.toString());
 ```
 
+#### `Reducing Fractions`
+``` javascript
+const f1 = pn.fraction(25,50);
+console.log(f1.reduce().toString());
+```
+
+#### `Representing Recurring Number in Fraction Form`
+``` javascript
+const rf = recurringToFraction(1,undefined,3); // represents 1.33333333...
+// First parameter is digits before the dot
+// Second parameter is non-recurring digits after the dot if not pass undefined
+// Third parameter is recurring digits after the dot
+console.log(rf.toString());
+```
+
 ## Complex Numbers
 
 #### `Complex Number Creation`
