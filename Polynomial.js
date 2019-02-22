@@ -47,7 +47,7 @@ class Polynomial
                     let rec = [0,smaller.degree()-i-1];
                     if(bigger.coeffs[i+offset] != undefined)
                     {
-                        rec[0] = rec[0] + bigger.coeffs[i+offset][0];
+                        rec[0] = bigger.coeffs[i+offset][0];
                     }
                     if(smaller.coeffs[i] != undefined)
                     {
@@ -61,6 +61,26 @@ class Polynomial
             return rp;
         }
 
+    }
+
+    substract(p)
+    {
+        const temp = [];
+        for(let c in p.coeffs)
+        {
+            if(c == 0) temp.push(-p.coeffs[c][0]);
+            else temp.push(p.coeffs[c][0]);
+        }
+        return this.add(new Polynomial(...temp));
+    }
+
+    multiply(p)
+    {
+        let temp = [];
+        for(let c of this.coeffs)
+        {
+
+        }
     }
 
     toString()
@@ -82,3 +102,4 @@ console.log(p1.toString());
 const p2 = new Polynomial(2,4,2,4);
 console.log(p2.toString());
 console.log(`${p1.toString()} + ${p2.toString()} = ${p1.add(p2).toString()}` );
+console.log(`${p1.toString()} - ${p2.toString()} = ${p1.substract(p2).toString()}` );
