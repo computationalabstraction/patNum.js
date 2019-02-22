@@ -79,7 +79,7 @@ class Polynomial
         let temp = [];
         for(let c of this.coeffs)
         {
-
+            
         }
     }
 
