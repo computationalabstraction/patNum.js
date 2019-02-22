@@ -3,15 +3,15 @@
 ### A Library for Mathematics in Javascript
 
 ### patNum.js provides constructs and utilites to work with-
-### 1. `Statistics`
-### 2. `Vectors`
-### 3. `Matrices`
-### 4. `Fractions`
-### 5. `Polynomials`
-### 6. `Complex Numbers`
-### 7. `Waves`
-### 8. `Game Theory`
-### 9. `Geometry (2d,3d,4d)`
+### 1. `Statistics` (Done-EverGrowing)
+### 2. `Vectors` (Will Do)
+### 3. `Matrices` (Done)
+### 4. `Fractions` (Done)
+### 5. `Polynomials` (WIP)
+### 6. `Complex Numbers` (Done)
+### 7. `Waves` (Done)
+### 8. `Game Theory` (Will Do)
+### 9. `Geometry (2d,3d,4d)` (WIP)
 
 
 ## Statistics
