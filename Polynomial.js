@@ -20,25 +20,45 @@ class Polynomial
             {
                 for(let i in this.coeffs)
                 {
-                    temp.push(this.coeffs[i] + p.coeffs[i]);
+                    temp.push(this.coeffs[i][0] + p.coeffs[i][0]);
                 }
             }
             else
             {
-                const offset = this.degree() - p.degree();
-                if(offset > 0)
+                let bigger = 0;
+                let smaller = 0;
+                if(this.degree()>p.degree()) 
                 {
-                    for(let i = 0;i<offset;i++) temp.push(this.coeffs[i]);
-                    for(let i = offset; i < this.coeffs.length;i++) temp.push(this.coeffs[i] + p.coeffs[i]);
+                    bigger = this;
+                    smaller = p;
                 }
-                else if(offset < 0)
+                else
                 {
-                    for(let i = 0;i < Math.sign(offset)*offset;i++) temp.push(p.coeffs[i]);
-                    for(let i = offset; i < this.coeffs.length;i++) temp.push(this.coeffs[i] + p.coeffs[i]);
+                    bigger = p;
+                    smaller = this
+                }
+                let offset = bigger.degree()-smaller.degree();
+                for(let i = 0;i < offset;i++)
+                {
+                    temp.push([bigger.coeffs[i][0],bigger.degree()-i-1]);
+                }
+                for(let i = 0;i < smaller.degree();i++)
+                {
+                    let rec = [0,smaller.degree()-i-1];
+                    if(bigger.coeffs[i+offset] != undefined)
+                    {
+                        rec[0] = rec[0] + bigger.coeffs[i+offset][0];
+                    }
+                    if(smaller.coeffs[i] != undefined)
+                    {
+                        rec[0] = rec[0] + smaller.coeffs[i][0];
+                    }
+                    temp.push(rec);
                 }
             }
-            console.log(temp);
-            return new Polynomial(...temp);
+            const rp = new Polynomial();
+            rp.coeffs = temp;
+            return rp;
         }
 
     }
@@ -50,7 +70,7 @@ class Polynomial
         {
             let c = this.coeffs[i][0];
             let pow = this.coeffs[i][1];
-            if(i != 0) str += (c>0?"+":"") + (c==1?"":c) + (pow==0?"": (pow==1?"x":`x^${pow}`));
+            if(i != 0) str += (c>=0?"+":"") + (c==1?"":c) + (pow==0?"": (pow==1?"x":`x^${pow}`));
             else str += (c==1?"":c) + (pow==0?"": (pow==1?"x":`x^${pow}`));
         }
         return str;
@@ -59,7 +79,6 @@ class Polynomial
 
 const p1 = new Polynomial(1,-4,7);
 console.log(p1.toString());
-const p2 = new Polynomial(2,2,4);
+const p2 = new Polynomial(2,4,2,4);
 console.log(p2.toString());
-console.log(p1.toString() + " + " + p2.toString());
-console.log(p1.add(p2).toString());
+console.log(`${p1.toString()} + ${p2.toString()} = ${p1.add(p2).toString()}` );
