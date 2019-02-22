@@ -45,18 +45,9 @@ function orientation(p1,p2,p3)
     let temp = (p1p2[1]*p2p3[2]-p2p3[1]*p1p2[2]) 
              - (p1p2[0]*p2p3[2]-p2p3[0]*p1p2[2])
              + (p1p2[0]*p2p3[1]-p2p3[0]*p1p2[1]);
-    if(temp == 0)
-    {
-        return COLINEAR;
-    }
-    else if(temp > 0)
-    {
-        return CLOCKWISE;
-    }
-    else if(temp < 0)
-    {
-        return ANTICLOCKWISE;
-    }
+    if(temp == 0) return COLINEAR;
+    else if(temp > 0) return CLOCKWISE;
+    else if(temp < 0) return ANTICLOCKWISE;
 }
 
 function angle(...points)
@@ -149,7 +140,7 @@ function toPolar(point)
     return pp;
 }
 
-function toCartesian(point)
+function toCartesian(polar)
 {
     let cp = [];
     cp[0] = point[0] * Math.cos(point[1]);
