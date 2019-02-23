@@ -53,9 +53,7 @@ class Fraction
             {
                 this.n *= 10**digitsAfterDot(d);
             }
-            const temp = this.reduce();
-            this.n = temp.n;
-            this.d = temp.d;
+            this.reduce();
         }
     }
 
