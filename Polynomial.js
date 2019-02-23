@@ -79,7 +79,35 @@ class Polynomial
         let temp = [];
         for(let c of this.coeffs)
         {
-            
+            for(let d of p.coeffs)
+            {
+                temp.push([c[0]*d[0],c[1]+d[1]]);
+            }
+        }
+        const rp = new Polynomial();
+        rp.coeffs = temp;
+        rp.reduce();
+        return rp;
+    }
+
+    reduce()
+    {
+        let temp = [];
+        for(let i in this.coeffs)
+        {
+            let flag = true;
+            for(let j in this.coeffs)
+            {
+                if(i != j && this.coeffs[i][1] == this.coeffs[j][1])
+                {
+                    temp.push([this.coeffs[i] + this.coeffs[j],this.coeffs[i][1]]);
+                    flag = false;
+                }   
+            }
+            if(flag)
+            {
+                temp.push(this.coeffs[i]);
+            }
         }
     }
 
