@@ -178,11 +178,13 @@ function recurringToFraction(bd,nrd,rd)
     return new Fraction(whole-wholenr,nd-ndr);
 }
 
-let f1 = new Fraction(0.75);
-console.log(f1.toString());
+// let f1 = new Fraction(0.75);
+// console.log(f1.toString());
 
-let f2 = recurringToFraction(0,undefined,3);
-console.log(f2.toString());
+// let f2 = recurringToFraction(0,undefined,3);
+// console.log(f2.toString());
+
+module.exports = Fraction; 
 
 // let f1 = new Fraction(5,2);
 // let f2 = new Fraction(7,3);
