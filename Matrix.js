@@ -1,3 +1,5 @@
+const Fraction = require("./Fraction");
+
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -82,7 +84,7 @@ class Matrix
 
     at(row,column)
     {
-        return this.data[row - 1][column - 1];;
+        return this.data[row - 1][column - 1]; 
     }
 
     fill(n)
@@ -145,7 +147,6 @@ class Matrix
                         }
                         newMatrix.data[i][j] = sum;
                     }
-
                 }
                 return newMatrix;
             }
@@ -321,6 +322,102 @@ class Matrix
         return new Matrix(newMatrix);
     }
 
+    minor(i,j)
+    {
+        const temp =  Matrix.of(this.rows-1,this.columns-1);
+        let rt = 1;
+        let ct = 1;
+        for(let rows = 1; rows <= this.rows; rows++)
+        {
+            if(rows == i) continue;
+            for(let columns = 1; columns <= this.columns; columns++)
+            {
+                if(columns == j) continue;
+                temp.to(rt,ct++,this.at(rows,columns));
+            }
+            rt++;
+            ct = 1;
+        }
+        return temp;
+    }
+
+    cofactor(i,j)
+    {
+        return ( (-1) ** (i+j) ) *  this.at(i,j);
+    }
+
+    cofactorSign(i,j)
+    {
+        return ( (-1) ** (i+j) );
+    }
+
+    determinant()
+    {
+        if(this.rows == 1 && this.columns == 1) return this.at(1,1);
+        let sum = 0;
+        for(let column = 1;column <= this.data[0].length; column++)
+        {
+            let i = this.cofactor(1,column) * this.minor(1,column).determinant();
+            sum += i;
+        }
+        return sum;
+    }
+
+    inverse()
+    {
+        let det = this.determinant();
+        if(det == 0) throw Error("Only Non-Singular Matrices have inverse");
+        let CofM = Matrix.of(this.rows,this.columns);
+        for(let rows = 1; rows <= this.rows;rows++)
+        {
+            for(let columns = 1;columns<=this.columns;columns++)
+            {
+                let e = this.cofactorSign(rows,columns) * this.minor(rows,columns).determinant();
+                CofM.to(rows,columns,e);
+            }
+        }
+        let AdjM = CofM.transpose();
+        return AdjM.divide(det);
+    }
+
+    inverse2()
+    {
+        let det = this.determinant();
+        if(det == 0) throw Error("Only Non-Singular Matrices have inverse");
+        let CofM = Matrix.of(this.rows,this.columns);
+        for(let rows = 1; rows <= this.rows;rows++)
+        {
+            for(let columns = 1;columns<=this.columns;columns++)
+            {
+                let e = this.cofactorSign(rows,columns) * this.minor(rows,columns).determinant();
+                CofM.to(rows,columns,e);
+            }
+        }
+        let AdjM = CofM.transpose();
+        AdjM.transform((v) => new Fraction(v,det));
+        return AdjM;
+    }
+
+    toString()
+    {
+        let str = "";
+        str += "[\n";
+        for(let i = 0; i < this.rows;i++)
+        {
+            str += " "
+            for(let j = 0; j < this.columns;j++)
+            {
+                let v = this.data[i][j];
+                if(v instanceof Fraction) str += v.toString();
+                else str += v;
+                str += " "
+            }
+            str += "\n";
+        }
+        str += "]";
+        return str;
+    }
+
     operateWith(matrix,operation)
     {
         let newMatrix = [];
@@ -405,6 +502,24 @@ function ColVector(array)
     }
     return new Matrix(output);
 }
+
+// const m1 = Matrix.from([
+//     [10,20,30],
+//     [5,6,7],
+//     [11,22,33]
+// ]);
+
+// console.log(m1.determinant());
+// console.log(m1.inverse());
+
+// const m2 = Matrix.from([
+//     [9,3,5],
+//     [-6,-9,7],
+//     [-1,-8,1]
+// ]);
+
+// console.log(m2.determinant());
+// console.log(m2.inverse2().toString());
 
 
 // Exports ---------------------------------------------------------------------
