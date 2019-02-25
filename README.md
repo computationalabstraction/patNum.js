@@ -264,6 +264,71 @@ let am1 = m1.flatMap( e => e * 2 );
 // It will flatten [10,20,30,40,...] and then apply the operation to each element [20,40,60,80,...] and return the Array
 ```
 
+#### `Matrix Minor`
+``` javascript
+const m1 = pn.matrix([
+    [9,3,5],
+    [-6,-9,7],
+    [-1,-8,1]
+]);
+
+let min = m1.minor(1,1); // will return a minor matrix
+```
+
+#### `Matrix Cofactors`
+``` javascript
+const m1 = pn.matrix([
+    [9,3,5],
+    [-6,-9,7],
+    [-1,-8,1]
+]);
+
+let cf = m1.cofactor(1,2); // will return the cofactor value
+```
+
+#### `Matrix Determinant`
+``` javascript
+const m1 = pn.matrix([
+    [5,7],
+    [10,20]
+]);
+
+let det = m1.determinant(); // will return the determinant
+```
+
+#### `Matrix Inverse ( Type 1 )`
+``` javascript
+const m1 = pn.matrix([
+    [9,3,5],
+    [-6,-9,7],
+    [-1,-8,1]
+]);
+
+let inv = m1.inverse(); // will return and inverse matrix and may contain decimal values
+```
+
+#### `Matrix Inverse ( Type 2 )`
+``` javascript
+const m1 = pn.matrix([
+    [9,3,5],
+    [-6,-9,7],
+    [-1,-8,1]
+]);
+
+let inv = m1.inverse2(); // will return and inverse matrix of fractions
+```
+
+#### `Matrix toString`
+``` javascript
+const m1 = pn.matrix([
+    [9,3,5],
+    [-6,-9,7],
+    [-1,-8,1]
+]);
+
+console.log(m1.toString()); // will print the Matrix in a formatted fashion
+```
+
 #### `Row Vector`
 ``` javascript
 const m1 = pn.vector([ 10, 20, 30 ]);
