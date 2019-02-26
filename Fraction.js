@@ -32,6 +32,7 @@ class Fraction extends Construct
     constructor(n,d=1)
     {
         super();
+        if(d == 0) throw new Error("Cannot Divide by Zero");
         let flag1 = false;
         let flag2 = false;
         if(!Number.isInteger(n))
