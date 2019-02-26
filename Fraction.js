@@ -1,3 +1,5 @@
+const Construct = require("./Protocols").Construct;
+
 function gcd(a,b)
 {
     if(b == 0) return a; 
@@ -25,10 +27,11 @@ function digits(n)
     return 1 + digits(n/10);
 }
 
-class Fraction
+class Fraction extends Construct
 {
     constructor(n,d=1)
     {
+        super();
         let flag1 = false;
         let flag2 = false;
         if(!Number.isInteger(n))
