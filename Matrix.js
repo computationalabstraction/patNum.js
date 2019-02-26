@@ -96,24 +96,49 @@ class Matrix extends Construct
         return this;
     }
 
+    _add(n1,n2)
+    {
+        if(typeof n1 == "Number" && typeof n2 == "Number") return n1+n2;
+        else return n1.add(n2);
+    }
+
+    _substract(n1,n2)
+    {
+        if(typeof n1 == "Number" && typeof n2 == "Number") return n1-n2;
+        else return n1.subtract(n2);
+    }
+
+
+    _multiply(n1,n2)
+    {
+        if(typeof n1 == "Number" && typeof n2 == "Number") return n1*n2;
+        else return n1.multiply(n2);
+    }
+
+    _divide(n1,n2)
+    {
+        if(typeof n1 == "Number" && typeof n2 == "Number") return n1*n2;
+        else return n1.divide(n2);
+    }
+
     add(matrix)
     {
-        return this.operateWith(matrix, (n1,n2) => n1 + n2 );
+        return this.operateWith(matrix, this._add );
     }
 
     subtract(matrix)
     {
-        return this.operateWith(matrix, (n1,n2) => n1 - n2 );
+        return this.operateWith(matrix, this._substract );
     }
 
     multiply(matrix)
     {
-        return this.operateWith(matrix, (n1,n2) => n1 * n2 );
+        return this.operateWith(matrix, this._multiply );
     }
 
     divide(matrix)
     {
-        return this.operateWith(matrix, (n1,n2) => n1 / n2 );
+        return this.operateWith(matrix, this._divide );
     }
 
     randomize(min = -1 , max = 1)
@@ -146,7 +171,7 @@ class Matrix extends Construct
                         let sum = 0;
                         for(let k = 0; k < matrix.rows; k++)
                         {
-                            sum += m1[i][k] * m2[k][j];
+                            sum += this._multiply(m1[i][k],m2[k][j]);
                         }
                         newMatrix.data[i][j] = sum;
                     }
@@ -216,7 +241,7 @@ class Matrix extends Construct
                     row[element] = operation(row[element]);
                 }
             }
-            else if(typeof row == "number")
+            else if(typeof row == "number" || row instanceof Construct)
             {
                 this.data[row] = operation(this.data[row]);
             }
@@ -238,7 +263,7 @@ class Matrix extends Construct
                     row[element] = operation(row[element]);
                 }
             }
-            else if(typeof row == "number")
+            else if(typeof row == "number" || row instanceof Construct)
             {
                 newMatrix[row] = operation(this.data[row]);
             }
@@ -268,7 +293,7 @@ class Matrix extends Construct
     {
         for(let row in this.data)
         {
-            if(typeof row == "number")
+            if(typeof row == "number" || row instanceof Construct)
             {
                 this.data[row] = operation(row);
             }
@@ -308,7 +333,7 @@ class Matrix extends Construct
         let newMatrix = [];
         for(let row of this.data)
         {
-            if(typeof row == "number")
+            if(typeof row == "number" || row instanceof Construct)
             {
                 newMatrix.push(row);
             }
@@ -346,7 +371,7 @@ class Matrix extends Construct
 
     cofactor(i,j)
     {
-        return ( (-1) ** (i+j) ) *  this.at(i,j);
+        return ( (-1) ** (i+j) ) * this.at(i,j);
     }
 
     cofactorSign(i,j)
@@ -424,11 +449,7 @@ class Matrix extends Construct
     operateWith(matrix,operation)
     {
         let newMatrix = [];
-        if(matrix instanceof Matrix)
-        {
-            matrix = matrix.data
-        }
-        if(typeof matrix == "number")
+        if(typeof matrix == "number" || matrix instanceof Construct)
         {
 
             for(let row of this.data)
@@ -442,48 +463,51 @@ class Matrix extends Construct
             }
 
         }
-        for(let row in this.data)
+        else if(matrix instanceof Matrix)
         {
-            let r1 = this.data[row];
-            let r2 = matrix[row];
-            let newRow = [];
-            if(typeof r1 == "number" && typeof r2 == "number")
+            for(let row in this.data)
             {
-                newMatrix.push(operation(r1,r2))
-            }
-            else if( Array.isArray(r1) && typeof r2 == "number" )
-            {
-                newRow[0] = operation(r1[0],r2);
-                for(let i = 1; i < r1.length; i++)
+                let r1 = this.data[row];
+                let r2 = matrix[row];
+                let newRow = [];
+                if(typeof r1 == "number" || r1 instanceof Construct && typeof r2 == "number" || r1 instanceof Construct)
                 {
-                    newRow[i] = r1[i];
+                    newMatrix.push(operation(r1,r2))
                 }
-                newMatrix.push(newRow);
-            }
-            else if( typeof r1 == "number" && Array.isArray(r2) )
-            {
-                newMatrix.push(operation(r1,r2[0]));
-            }
-            else if( Array.isArray(r1) && Array.isArray(r2) )
-            {
-                for(let n in r1)
+                else if( Array.isArray(r1) && typeof r2 == "number" || r1 instanceof Construct)
                 {
-                    let e1 = r1[n];
-                    let e2 = r2[n];
-                    if( e1 == undefined && e2 != undefined )
+                    newRow[0] = operation(r1[0],r2);
+                    for(let i = 1; i < r1.length; i++)
                     {
-                        newRow.push(e2);
+                        newRow[i] = r1[i];
                     }
-                    else if( e2 == undefined && e1 != undefined )
-                    {
-                        newRow.push(e1);
-                    }
-                    else
-                    {
-                        newRow.push(operation(r1[n],r2[n]));
-                    }
+                    newMatrix.push(newRow);
                 }
-                newMatrix.push(newRow);
+                else if( typeof r1 == "number" || r1 instanceof Construct && Array.isArray(r2) )
+                {
+                    newMatrix.push(operation(r1,r2[0]));
+                }
+                else if( Array.isArray(r1) && Array.isArray(r2) )
+                {
+                    for(let n in r1)
+                    {
+                        let e1 = r1[n];
+                        let e2 = r2[n];
+                        if( e1 == undefined && e2 != undefined )
+                        {
+                            newRow.push(e2);
+                        }
+                        else if( e2 == undefined && e1 != undefined )
+                        {
+                            newRow.push(e1);
+                        }
+                        else
+                        {
+                            newRow.push(operation(r1[n],r2[n]));
+                        }
+                    }
+                    newMatrix.push(newRow);
+                }
             }
         }
         return new Matrix(newMatrix);
