@@ -1,10 +1,12 @@
+const Construct = require("./Protocols").Construct;
 const Fraction = require("./Fraction");
+const Complex = require("./Complex");
 
 function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-class Matrix
+class Matrix extends Construct
 {
     // Static Methods
 
@@ -28,6 +30,7 @@ class Matrix
 
     constructor(array,rows = null,columns = null,fill = false)
     {
+        super();
         this.data = array;
         if(rows && columns)
         {
@@ -408,7 +411,7 @@ class Matrix
             for(let j = 0; j < this.columns;j++)
             {
                 let v = this.data[i][j];
-                if(v instanceof Fraction) str += v.toString();
+                if(v instanceof Construct) str += v.toString();
                 else str += v;
                 str += " "
             }
@@ -519,8 +522,16 @@ function ColVector(array)
 // ]);
 
 // console.log(m2.determinant());
-// console.log(m2.inverse2().toString());
+// console.log(m2.inverse().toString());
 
+// const pauliY = Matrix.from(
+//     [
+//         [0,new Complex(0,-1)],
+//         [new Complex(0,1),0]
+//     ]
+// );
+
+// console.log(pauliY.toString());
 
 // Exports ---------------------------------------------------------------------
 
