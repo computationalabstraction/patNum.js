@@ -1,7 +1,10 @@
-class Complex
+const Construct = require("./Protocols").Construct;
+
+class Complex extends Construct
 {
     constructor(...val)
     {
+        super();
         if(val)
         {
             if(val.length > 1)
@@ -191,9 +194,9 @@ class Complex
         if(this.a != 0 && this.b != 0)
         {
             if(this.b < 0) return `${this.a} - ${Math.abs(this.b)}i`;
-            else return `${this.a} + ${this.b}i`;
+            else return `${this.a} + ${(Math.abs(this.b) == 1)?(this.b == -1)?"-":"":this.b}i`;
         }
-        else if(this.b != 0) return `${this.b}i`;
+        else if(this.b != 0) return `${(Math.abs(this.b) == 1)?(this.b == -1)?"-":"":this.b}i`;
         else if(this.a != 0) return `${this.a}`;
         else return "";
     }
@@ -208,84 +211,84 @@ class Complex
 // Tests Taken and Results verified from Khan Academy
 // https://www.khanacademy.org/math/algebra2/introduction-to-complex-numbers-algebra-2/multiplying-complex-numbers-algebra-2/a/multiplying-complex-numbers
 
-// Multiply -> −4(13+5i)
-console.log("Calculating −4(13+5i)");
-const c1 = new Complex(13,5);
-console.log(c1.toString());
-console.log(c1.multiply(-4).toString());
+// // Multiply -> −4(13+5i)
+// console.log("Calculating −4(13+5i)");
+// const c1 = new Complex(13,5);
+// console.log(c1.toString());
+// console.log(c1.multiply(-4).toString());
 
-// Multiply -> 2i(3−8i)
-console.log("Calculating 2i(3−8i)");
-const c2 = new Complex(3,-8);
-const c3 = new Complex(2);
-console.log(c2.toString());
-console.log(c3.toString());
-console.log(c2.multiply(c3).toString());
+// // Multiply -> 2i(3−8i)
+// console.log("Calculating 2i(3−8i)");
+// const c2 = new Complex(3,-8);
+// const c3 = new Complex(2);
+// console.log(c2.toString());
+// console.log(c3.toString());
+// console.log(c2.multiply(c3).toString());
 
-// Multiply 3(-2+10i) 
-console.log("Calculating 3(-2+10i)");
-const c4 = new Complex(-2,10);
-console.log(c4.toString());
-console.log(c4.multiply(3).toString());
+// // Multiply 3(-2+10i) 
+// console.log("Calculating 3(-2+10i)");
+// const c4 = new Complex(-2,10);
+// console.log(c4.toString());
+// console.log(c4.multiply(3).toString());
 
-// Multiply -> −6i(5+7i)
-console.log("Calculating −6i(5+7i)");
-const c5 = new Complex(5,7);
-const c6 = new Complex(-6);
-console.log(c5.toString());
-console.log(c6.toString());
-console.log(c5.multiply(c6).toString());
+// // Multiply -> −6i(5+7i)
+// console.log("Calculating −6i(5+7i)");
+// const c5 = new Complex(5,7);
+// const c6 = new Complex(-6);
+// console.log(c5.toString());
+// console.log(c6.toString());
+// console.log(c5.multiply(c6).toString());
 
-// Multiply -> (1+4i)(5+i)
-console.log("Calculating (1+4i)(5+i)");
-const c7 = new Complex(1,4);
-const c8 = new Complex(5,1);
-console.log(c7.toString());
-console.log(c8.toString());
-console.log(c7.multiply(c8).toString());
+// // Multiply -> (1+4i)(5+i)
+// console.log("Calculating (1+4i)(5+i)");
+// const c7 = new Complex(1,4);
+// const c8 = new Complex(5,1);
+// console.log(c7.toString());
+// console.log(c8.toString());
+// console.log(c7.multiply(c8).toString());
 
-// Multiply -> (1+2i)(3+i)
-console.log("Calculating (1+2i)(3+i)");
-const c9 = new Complex(1,2);
-const c10 = new Complex(3,1);
-console.log(c9.toString());
-console.log(c10.toString());
-console.log(c9.multiply(c10).toString());
+// // Multiply -> (1+2i)(3+i)
+// console.log("Calculating (1+2i)(3+i)");
+// const c9 = new Complex(1,2);
+// const c10 = new Complex(3,1);
+// console.log(c9.toString());
+// console.log(c10.toString());
+// console.log(c9.multiply(c10).toString());
 
-// Multiply -> (4+i)(7−3i)
-console.log("Calculating (4+i)(7−3i)");
-let c11 = new Complex(4,1);
-let c12 = new Complex(7,-3);
-console.log(c11.toString());
-console.log(c12.toString());
-console.log(c11.multiply(c12).toString());
+// // Multiply -> (4+i)(7−3i)
+// console.log("Calculating (4+i)(7−3i)");
+// let c11 = new Complex(4,1);
+// let c12 = new Complex(7,-3);
+// console.log(c11.toString());
+// console.log(c12.toString());
+// console.log(c11.multiply(c12).toString());
 
-// Multiply -> (2−i)(2+i)
-console.log("Calculating (2−i)(2+i)");
-c11 = new Complex(2,-1);
-c12 = new Complex(2,1);
-console.log(c11.toString());
-console.log(c12.toString());
-console.log(c11.multiply(c12).toString());
+// // Multiply -> (2−i)(2+i)
+// console.log("Calculating (2−i)(2+i)");
+// c11 = new Complex(2,-1);
+// c12 = new Complex(2,1);
+// console.log(c11.toString());
+// console.log(c12.toString());
+// console.log(c11.multiply(c12).toString());
 
-// Multiply -> (1+i)(1+i)
-console.log("Calculating (1+i)(1+i)");
-c11 = new Complex(1,1);
-c12 = new Complex(1,1);
-console.log(c11.toString());
-console.log(c12.toString());
-console.log(c11.multiply(c12).toString());
+// // Multiply -> (1+i)(1+i)
+// console.log("Calculating (1+i)(1+i)");
+// c11 = new Complex(1,1);
+// c12 = new Complex(1,1);
+// console.log(c11.toString());
+// console.log(c12.toString());
+// console.log(c11.multiply(c12).toString());
 
-// Multiply -> (1+3i)^2 ⋅ (2+i)
-console.log("Calculating (1+3i)^2 ⋅ (2+i)");
-c11 = new Complex(1,3);
-c12 = new Complex(2,1);
-console.log(c11.toString());
-console.log(c12.toString());
-console.log(c11.multiply(c11).multiply(c12).toString());
+// // Multiply -> (1+3i)^2 ⋅ (2+i)
+// console.log("Calculating (1+3i)^2 ⋅ (2+i)");
+// c11 = new Complex(1,3);
+// c12 = new Complex(2,1);
+// console.log(c11.toString());
+// console.log(c12.toString());
+// console.log(c11.multiply(c11).multiply(c12).toString());
 
-console.log("(3 + 3i)");
-console.log(new Complex(3,3).pow(5).toString());
+// console.log("(3 + 3i)");
+// console.log(new Complex(3,3).pow(5).toString());
 
 // Exports ---------------------------------------------------------------------
-module.exports.Complex = Complex;
+module.exports = Complex;
