@@ -506,6 +506,8 @@ function ColVector(array)
     return new Matrix(output);
 }
 
+// m2.clone().diagonal(1,n => n * 2).row(1,n => n / 2).transform(n => n ** 2)
+
 // const m1 = Matrix.from([
 //     [10,20,30],
 //     [5,6,7],
