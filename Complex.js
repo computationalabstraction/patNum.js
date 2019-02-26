@@ -1,4 +1,5 @@
 const Construct = require("./Protocols").Construct;
+const Fraction = require("./Fraction");
 
 class Complex extends Construct
 {
@@ -22,36 +23,45 @@ class Complex extends Construct
 
     add(n)
     {
-        var temp = new Complex();
-        if(this.a)
+        if(typeof(n) == "Number" || n instanceof Construct)
         {
-           temp.a = this.a + n.a;
+            n = new Complex(n,0);
         }
-        temp.b =  this.b + n.b;
+        var temp = new Complex();
+        if(this.a instanceof Construct) temp.a = this.a.add(n.a);
+        else if(n.a instanceof Construct) temp.a = n.a.add(this.a);
+        else temp.a = this.a + n.a;
+        if(this.b instanceof Construct) temp.b = this.b.add(n.b);
+        else if(n.b instanceof Construct) temp.b = n.b.add(this.b);
+        else temp.b =  this.b + n.b;
         return temp;
     }
 
     substract(n)
     {
+        if(typeof(n) == "Number" || n instanceof Construct)
+        {
+            n = new Complex(n,0);
+        }
         var temp = new Complex();
-        temp.a = this.a - n.a;
-        temp.b =  this.b - n.b;
+        if(this.a instanceof Construct) temp.a = this.a.substract(n.a);
+        else if(n.a instanceof Construct) temp.a = n.a.substract(this.a);
+        else temp.a = this.a - n.a;
+        if(this.b instanceof Construct) temp.b = this.b.substract(n.b);
+        else if(n.b instanceof Construct) temp.b = n.b.substract(this.b);
+        else temp.b =  this.b - n.b;
         return temp;
     }
 
     multiply(n)
     {
+        if(typeof(n) == "Number" || n instanceof Construct)
+        {
+            n = new Complex(n,0);
+        }
         var temp = new Complex();
-        if(n instanceof Complex)
-        {
-            temp.a = (this.a * n.a) + ((this.b * n.b) * -1);
-            temp.b = (this.a * n.b) + (this.b * n.a);
-        }
-        else
-        {
-            temp.a = this.a * n;
-            temp.b = this.b * n;
-        }
+        temp.a = (this.a * n.a) + ((this.b * n.b) * -1);
+        temp.b = (this.a * n.b) + (this.b * n.a);
         return temp;
     }
 
@@ -76,6 +86,7 @@ class Complex extends Construct
                 temp.a = this.a / n;
                 temp.b = this.b / n;
             }
+            else throw new Error("Cannot Divide by Zero");
         }
         return temp;
     }
