@@ -1,5 +1,4 @@
 const Construct = require("./Protocols").Construct;
-const Fraction = require("./Fraction");
 
 class Complex extends Construct
 {
@@ -45,10 +44,20 @@ class Complex extends Construct
         }
         var temp = new Complex();
         if(this.a instanceof Construct) temp.a = this.a.substract(n.a);
-        else if(n.a instanceof Construct) temp.a = n.a.substract(this.a);
+        else if(n.a instanceof Construct) {
+            if(n.a instanceof Fraction)
+            {
+                temp.a = new Fraction(this.a).substract(n.a);
+            }
+        }
         else temp.a = this.a - n.a;
         if(this.b instanceof Construct) temp.b = this.b.substract(n.b);
-        else if(n.b instanceof Construct) temp.b = n.b.substract(this.b);
+        else if(n.b instanceof Construct){
+            if(n.b instanceof Fraction)
+            {
+                temp.b = new Fraction(this.b).substract(n.b);
+            }
+        }
         else temp.b =  this.b - n.b;
         return temp;
     }
@@ -60,8 +69,21 @@ class Complex extends Construct
             n = new Complex(n,0);
         }
         var temp = new Complex();
-        temp.a = (this.a * n.a) + ((this.b * n.b) * -1);
-        temp.b = (this.a * n.b) + (this.b * n.a);
+        if(this.a instanceof Construct && this.b instanceof Construct)
+        {
+            temp.a = this.a.multiply(n.a).add(this.b.multiply(n.b).multiply(-1));
+            temp.b = this.a.multiply(n.b).add(this.b.multiply(n.a));
+        }
+        else if(n.a instanceof Construct && n.b instanceof Construct)
+        {
+            temp.a = n.a.multiply(this.a).add(this.b.multiply(n.b).multiply(-1));
+            temp.b = n.a.multiply(this.b).add(this.b.multiply(n.a));
+        }
+        else
+        {
+            temp.a = (this.a * n.a) + ((this.b * n.b) * -1);
+            temp.b = (this.a * n.b) + (this.b * n.a);
+        }
         return temp;
     }
 
