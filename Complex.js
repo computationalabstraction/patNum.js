@@ -1,4 +1,101 @@
 const Construct = require("./Protocols").Construct;
+const Matrix = require("./Matrix").Matrix;
+const Fraction = require("./Fraction");
+// const Polynomial = require("./Polynomial");
+
+// Polynomial to be introduced later
+// First Prirority Matrix 
+// Second Priority Complex
+// Third Priority Fraction
+// Fourth Priority Number
+function coerse(x,y)
+{
+    if(typeof(x) == "number" && y instanceof Matrix)
+    {
+        return {
+            x:Matrix.of(y.rows,y.columns).fill(x),
+            y:y
+        };
+    }
+    else if(typeof(x) == "number" && y instanceof Complex)
+    {
+        return {
+            x:new Complex(x,0),
+            y:y
+        };
+    }
+    else if(typeof(x) == "number" && y instanceof Fraction)
+    {
+        return {
+            x:new Fraction(x),
+            y:y
+        };
+    }
+    else if(typeof(y) == "number" && x instanceof Matrix)
+    {
+        return {
+            x:x,
+            y:Matrix.of(x.rows,x.columns).fill(y)
+        };
+    }
+    else if(typeof(y) == "number" && x instanceof Complex)
+    {
+        return {
+            x:x,
+            y:new Complex(y,0)
+        };
+    }
+    else if(typeof(y) == "number" && x instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:new Fraction(y)
+        };
+    }
+    else if(x instanceof Matrix && y instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:Matrix.of(x.rows,x.columns).fill(y)
+        };
+    }
+    else if(x instanceof Fraction && y instanceof Matrix)
+    {
+        return {
+            x:Matrix.of(y.rows,y.columns).fill(x),
+            y:y
+        };
+    }
+    else if(x instanceof Complex && y instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:new Complex(y,0)
+        };
+    }
+    else if(x instanceof Fraction && y instanceof Complex)
+    {
+        return {
+            x:new Complex(x,0),
+            y:y
+        };
+    }
+    else if(x instanceof Matrix && y instanceof Complex)
+    {
+        return {
+            x:x,
+            y:Matrix.of(x.rows,x.columns).fill(y)
+        };
+    }
+    else if(x instanceof Complex && y instanceof Matrix)
+    {
+        return {
+            x:Matrix.of(y.rows,y.columns).fill(x),
+            y:y
+        };
+    }
+}
+
 
 class Complex extends Construct
 {
@@ -22,23 +119,39 @@ class Complex extends Construct
 
     add(n)
     {
-        if(typeof(n) == "Number" || n instanceof Construct)
+        if(n instanceof Complex)
         {
-            n = new Complex(n,0);
+            var temp = new Complex();
+            if(typeof(this.a) == "number" && typeof(n.a) == "number")
+            {
+                temp.a = this.a + n.a;
+            }
+            else
+            {
+                let {x,y} = coerse(this.a,n.a);
+                temp.a = x.add(y);
+            }
+            if(typeof(this.b) == "number" && typeof(n.b) == "number")
+            {
+                temp.b = this.b + n.b;
+            }
+            else
+            {
+                let {x,y} = coerse(this.b,n.b);
+                temp.b = x.add(y);
+            }
+            return temp;
         }
-        var temp = new Complex();
-        if(this.a instanceof Construct) temp.a = this.a.add(n.a);
-        else if(n.a instanceof Construct) temp.a = n.a.add(this.a);
-        else temp.a = this.a + n.a;
-        if(this.b instanceof Construct) temp.b = this.b.add(n.b);
-        else if(n.b instanceof Construct) temp.b = n.b.add(this.b);
-        else temp.b =  this.b + n.b;
-        return temp;
+        else
+        {
+            let {x,y} = coerse(this,n);
+            return x.add(y);
+        }
     }
 
     substract(n)
     {
-        if(typeof(n) == "Number" || n instanceof Construct)
+        if(typeof(n) == "number" || n instanceof Construct)
         {
             n = new Complex(n,0);
         }
@@ -64,7 +177,7 @@ class Complex extends Construct
 
     multiply(n)
     {
-        if(typeof(n) == "Number" || n instanceof Construct)
+        if(typeof(n) == "number" || n instanceof Construct)
         {
             n = new Complex(n,0);
         }
@@ -235,6 +348,15 @@ class Complex extends Construct
     }
 
 }
+
+
+const next = new Complex(1,4).add(new Fraction(1,3));
+console.log(next);
+console.log(next.toString());
+
+const next2 = new Complex(1,4).add(Matrix.from([ [1,2] , [3,4] ]));
+console.log(next2);
+console.log(next2.toString());
 
 // Remeber to add this to SHM lib and combine it with patnum.js
 // ********************************************************
