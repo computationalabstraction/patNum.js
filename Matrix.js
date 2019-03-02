@@ -1,6 +1,5 @@
 const Construct = require("./Protocols").Construct;
 const Fraction = require("./Fraction");
-const Complex = require("./Complex");
 
 function random(min, max) {
     return Math.random() * (max - min) + min;
@@ -98,26 +97,34 @@ class Matrix extends Construct
 
     _add(n1,n2)
     {
-        if(typeof n1 == "Number" && typeof n2 == "Number") return n1+n2;
-        else return n1.add(n2);
+        if(typeof n1 == "number" && typeof n2 == "number") return n1+n2;
+        else 
+        {
+            console.log(n1.toString());
+            console.log(n2.toString());
+            let {x,y} = coerse(n1,n2);
+            console.log(x.toString());
+            console.log(y.toString());
+            return x.add(y);
+        } 
     }
 
     _substract(n1,n2)
     {
-        if(typeof n1 == "Number" && typeof n2 == "Number") return n1-n2;
+        if(typeof n1 == "number" && typeof n2 == "number") return n1-n2;
         else return n1.subtract(n2);
     }
 
 
     _multiply(n1,n2)
     {
-        if(typeof n1 == "Number" && typeof n2 == "Number") return n1*n2;
+        if(typeof n1 == "number" && typeof n2 == "number") return n1*n2;
         else return n1.multiply(n2);
     }
 
     _divide(n1,n2)
     {
-        if(typeof n1 == "Number" && typeof n2 == "Number") return n1*n2;
+        if(typeof n1 == "number" && typeof n2 == "number") return n1*n2;
         else return n1.divide(n2);
     }
 
@@ -470,22 +477,28 @@ class Matrix extends Construct
                 let r1 = this.data[row];
                 let r2 = matrix[row];
                 let newRow = [];
-                if(typeof r1 == "number" || r1 instanceof Construct && typeof r2 == "number" || r1 instanceof Construct)
+                if((typeof r1 == "number" || r1 instanceof Construct) && (typeof r2 == "number" || r1 instanceof Construct))
                 {
                     newMatrix.push(operation(r1,r2))
                 }
-                else if( Array.isArray(r1) && typeof r2 == "number" || r1 instanceof Construct)
+                else if( Array.isArray(r1) && (typeof r2 == "number" || r2 instanceof Construct))
                 {
                     newRow[0] = operation(r1[0],r2);
                     for(let i = 1; i < r1.length; i++)
                     {
-                        newRow[i] = r1[i];
+                        newRow[i] = operation(r1[i],r2);
                     }
                     newMatrix.push(newRow);
                 }
-                else if( typeof r1 == "number" || r1 instanceof Construct && Array.isArray(r2) )
+                else if( (typeof r1 == "number" || r1 instanceof Construct) && Array.isArray(r2) )
                 {
-                    newMatrix.push(operation(r1,r2[0]));
+                    // newMatrix.push(operation(r1,r2[0]));
+                    newRow[0] = operation(r1,r2[0]);
+                    for(let i = 1; i < r1.length; i++)
+                    {
+                        newRow[i] = operation(r1,r2[i]);
+                    }
+                    newMatrix.push(newRow);
                 }
                 else if( Array.isArray(r1) && Array.isArray(r2) )
                 {
@@ -530,6 +543,114 @@ function ColVector(array)
     return new Matrix(output);
 }
 
+// Exports ---------------------------------------------------------------------
+
+// Matrix
+module.exports.Matrix = Matrix;
+module.exports.of = Matrix.of;
+module.exports.random = Matrix.random;
+module.exports.from = Matrix.from;
+
+// Vectors
+module.exports.Vector = Vector;
+module.exports.ColVector = ColVector;
+
+
+const Complex = require("./Complex");
+
+function coerse(x,y)
+{
+    console.log(x);
+    console.log(y);
+    console.log(Complex);
+    console.log(((x) instanceof Complex));
+    console.log(y instanceof Matrix);
+    if(typeof(x) == "number" && y instanceof Matrix)
+    {
+        return {
+            x:Matrix.of(y.rows,y.columns).fill(x),
+            y:y
+        };
+    }
+    else if(typeof(x) == "number" && y instanceof Complex)
+    {
+        return {
+            x:new Complex(x,0),
+            y:y
+        };
+    }
+    else if(typeof(x) == "number" && y instanceof Fraction)
+    {
+        return {
+            x:new Fraction(x),
+            y:y
+        };
+    }
+    else if(typeof(y) == "number" && x instanceof Matrix)
+    {
+        return {
+            x:x,
+            y:Matrix.of(x.rows,x.columns).fill(y)
+        };
+    }
+    else if(typeof(y) == "number" && x instanceof Complex)
+    {
+        return {
+            x:x,
+            y:new Complex(y,0)
+        };
+    }
+    else if(typeof(y) == "number" && x instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:new Fraction(y)
+        };
+    }
+    else if(x instanceof Matrix && y instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:Matrix.of(x.rows,x.columns).fill(y)
+        };
+    }
+    else if(x instanceof Fraction && y instanceof Matrix)
+    {
+        return {
+            x:Matrix.of(y.rows,y.columns).fill(x),
+            y:y
+        };
+    }
+    else if(x instanceof Complex && y instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:new Complex(y,0)
+        };
+    }
+    else if(x instanceof Fraction && y instanceof Complex)
+    {
+        return {
+            x:new Complex(x,0),
+            y:y
+        };
+    }
+    else if(x instanceof Matrix && y instanceof Complex)
+    {
+        return {
+            x:x,
+            y:Matrix.of(x.rows,x.columns).fill(y)
+        };
+    }
+    else if(x instanceof Complex && y instanceof Matrix)
+    {
+        return {
+            x:Matrix.of(y.rows,y.columns).fill(x),
+            y:y
+        };
+    }
+}
+
 // m2.clone().diagonal(1,n => n * 2).row(1,n => n / 2).transform(n => n ** 2)
 
 // const m1 = Matrix.from([
@@ -558,15 +679,3 @@ function ColVector(array)
 // );
 
 // console.log(pauliY.toString());
-
-// Exports ---------------------------------------------------------------------
-
-// Matrix
-module.exports.Matrix = Matrix;
-module.exports.of = Matrix.of;
-module.exports.random = Matrix.random;
-module.exports.from = Matrix.from;
-
-// Vectors
-module.exports.Vector = Vector;
-module.exports.ColVector = ColVector;
