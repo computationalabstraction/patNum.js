@@ -1,9 +1,10 @@
 class Polynomial
 {
-    constructor(...vals)
+    constructor(...vals,vars=["x"])
     {
         this.coeffs = [];
-        for(let i in vals) this.coeffs.push( [ vals[i] , vals.length-i-1 ] );
+        this.vars = vars;
+        // for(let i in vals) this.coeffs.push( [ vals[i] , vals.length-i-1 ] );
     }
 
     degree()
