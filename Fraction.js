@@ -63,13 +63,9 @@ class Fraction extends Construct
 
     add(x)
     {
-        if(typeof(x) == "Number")
-        {
-            x = new Fraction(x,1);
-        }
         if(x instanceof Fraction)
         {
-            let temp = new Fraction();
+            let temp = new Fraction(1,1);
             if(this.d == x.d) 
             {
                 temp.n = this.n + x.n;
@@ -80,6 +76,7 @@ class Fraction extends Construct
                 temp.n = (x.d * this.n) + (this.d * x.n);
                 temp.d = (this.d * x.d);
             }
+            console.log()
             return temp;
         }
     }
