@@ -149,6 +149,7 @@ function toCartesian(polar)
     cp[1] = point[0] * Math.sin(point[1]);
     return cp;
 }
+
 // function circumcenter(...points)
 // {
 //     let cp = [];
