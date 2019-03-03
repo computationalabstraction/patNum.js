@@ -159,7 +159,7 @@ class Fraction extends Construct
 
     toString()
     {   
-        return `${this.n}/${this.d}`;
+        return `${(this.n instanceof Construct)?this.n.toString():this.n}/${(this.d instanceof Construct)?this.d.toString():this.d}`;
     }
 }
 
@@ -222,7 +222,7 @@ class Complex extends Construct
             }
             else
             {
-                let {x,y} = coerse(this.a,n.a);
+                let {x,y} = coerce(this.a,n.a);
                 temp.a = x.add(y);
             }
             if(typeof(this.b) == "number" && typeof(n.b) == "number")
@@ -231,14 +231,14 @@ class Complex extends Construct
             }
             else
             {
-                let {x,y} = coerse(this.b,n.b);
+                let {x,y} = coerce(this.b,n.b);
                 temp.b = x.add(y);
             }
             return temp;
         }
         else
         {
-            let {x,y} = coerse(this,n);
+            let {x,y} = coerce(this,n);
             return x.add(y);
         }
     }
@@ -254,7 +254,7 @@ class Complex extends Construct
             }
             else
             {
-                let {x,y} = coerse(this.a,n.a);
+                let {x,y} = coerce(this.a,n.a);
                 temp.a = x.substract(y);
             }
             if(typeof(this.b) == "number" && typeof(n.b) == "number")
@@ -263,14 +263,14 @@ class Complex extends Construct
             }
             else
             {
-                let {x,y} = coerse(this.b,n.b);
+                let {x,y} = coerce(this.b,n.b);
                 temp.b = x.substract(y);
             }
             return temp;
         }
         else
         {
-            let {x,y} = coerse(this,n);
+            let {x,y} = coerce(this,n);
             return x.substract(y);
         }
     }
@@ -451,7 +451,7 @@ class Complex extends Construct
 
 class Polynomial
 {
-    constructor(...vals,vars=["x"])
+    constructor(vals,vars=["x"])
     {
         this.coeffs = [];
         this.vars = vars;
@@ -603,6 +603,15 @@ class Matrix extends Construct
         return new Matrix(array);
     }
 
+    static identity(rows,columns)
+    {
+        let m;
+        if(rows && columns) m = Matrix.of(rows,columns);
+        else if(rows instanceof Matrix) m = Matrix.of(rows.rows,rows.columns);
+        m.diagonal(1, _ => 1);
+        return m;
+    }
+
     constructor(array,rows = null,columns = null,fill = false)
     {
         super();
@@ -634,7 +643,7 @@ class Matrix extends Construct
             this.columns = 0;
             for(let row of this.data)
             {
-                if(typeof row == "number")
+                if(typeof row == "number" || row instanceof Construct)
                 {
                     this.columns++;
                     if(this.rows == 0)
@@ -671,12 +680,17 @@ class Matrix extends Construct
         return this;
     }
 
+    identity()
+    {
+        return Matrix.identity(this);
+    }
+
     _add(n1,n2)
     {
         if(typeof n1 == "number" && typeof n2 == "number") return n1+n2;
         else 
         {
-            let {x,y} = coerse(n1,n2);
+            let {x,y} = coerce(n1,n2);
             return x.add(y);
         } 
     }
@@ -686,8 +700,8 @@ class Matrix extends Construct
         if(typeof n1 == "number" && typeof n2 == "number") return n1-n2;
         else 
         {
-            let {x,y} = coerse(n1,n2);
-            return x.add(y);
+            let {x,y} = coerce(n1,n2);
+            return x.substract(y);
         } 
     }
 
@@ -709,7 +723,7 @@ class Matrix extends Construct
         return this.operateWith(matrix, this._add );
     }
 
-    subtract(matrix)
+    substract(matrix)
     {
         return this.operateWith(matrix, this._substract );
     }
@@ -1019,6 +1033,7 @@ class Matrix extends Construct
             for(let j = 0; j < this.columns;j++)
             {
                 let v = this.data[i][j];
+                if(v == undefined && this.rows == 1) v = this.data[j] 
                 if(v instanceof Construct) str += v.toString();
                 else str += v;
                 str += " "
@@ -1037,9 +1052,16 @@ class Matrix extends Construct
             for(let row of this.data)
             {
                 let newRow = [];
-                for(let column of row)
+                if(Array.isArray(row))
                 {
-                    newRow.push(operation(column,matrix));
+                    for(let column of row)
+                    {
+                        newRow.push(operation(column,matrix));
+                    }
+                }
+                else
+                {
+                    newRow.push(operation(row,matrix));
                 }
                 newMatrix.push(newRow);
             }
@@ -1118,7 +1140,7 @@ function ColVector(array)
     return new Matrix(output);
 }
 
-function coerse(x,y)
+function coerce(x,y)
 {
     if(typeof(x) == "number" && y instanceof Matrix)
     {
@@ -1160,6 +1182,27 @@ function coerse(x,y)
         return {
             x:x,
             y:new Fraction(y)
+        };
+    }
+    else if(x instanceof Fraction && y instanceof Fraction)
+    {
+        return {
+            x:x,
+            y:y
+        };
+    }
+    else if(x instanceof Complex && y instanceof Complex)
+    {
+        return {
+            x:x,
+            y:y
+        };
+    }
+    else if(x instanceof Matrix && y instanceof Matrix)
+    {
+        return {
+            x:x,
+            y:y
         };
     }
     else if(x instanceof Matrix && y instanceof Fraction)
@@ -1206,20 +1249,34 @@ function coerse(x,y)
     }
 }
 
-const next = new Complex(1,4).add(new Fraction(1,3));
-console.log(next);
-console.log(next.toString());
+const c1 = new Complex(new Fraction(2,4),1);
+console.log(c1);
+console.log(c1.toString());
+const sc1 = c1.substract(new Fraction(1,2));
+console.log(sc1);
+console.log(sc1.toString());
 
-const next2 = new Complex(1,4).add(Matrix.from([ [1,2] , [3,4] ]));
-console.log(next2);
-console.log(next2.toString());
+const m1 = Matrix.from([new Fraction(2,4),new Fraction(2,4)]);
+console.log(m1);
+console.log(m1.toString());
+const sm1 = m1.substract(new Fraction(1,2));
+console.log(sm1);
+console.log(sm1.toString());
 
-const next3 = Matrix.from([ [new Fraction(3,4),new Fraction(5,6)] , [new Fraction(8,7),new Fraction(2,3)] ]);
-console.log(next3);
-console.log(next3.toString());
-const next4 = next3.add(next2)
-console.log(next4);
-console.log(next4.toString());
+// const next = new Complex(1,4).add(new Fraction(1,3));
+// console.log(next);
+// console.log(next.toString());
+
+// const next2 = new Complex(1,4).add(Matrix.from([ [1,2] , [3,4] ]));
+// console.log(next2);
+// console.log(next2.toString());
+
+// const next3 = Matrix.from([ [new Fraction(3,4),new Fraction(5,6)] , [new Fraction(8,7),new Fraction(2,3)] ]);
+// console.log(next3);
+// console.log(next3.toString());
+// const next4 = next3.add(next2)
+// console.log(next4);
+// console.log(next4.toString());
 
 
 // Exports ---------------------------------------------------------------------
