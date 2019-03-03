@@ -159,3 +159,14 @@ function toCartesian(polar)
 //     for(let n in cp) cp[n] /= 3;
 //     return cp;
 // }
+
+module.export.centroid = centroid;
+module.export.midpoint = midpoint;
+module.export.orientation = orientation;
+module.export.angle = angle;
+module.export.distance = distance;
+module.export.minDistance = minDistance;
+module.export.hausdorffDistance = hausdorffDistance;
+module.export.nndist = nndist;
+module.export.toPolar = toPolar;
+module.export.toCartesian = toCartesian;
