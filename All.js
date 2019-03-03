@@ -36,7 +36,7 @@ function digits(n)
 
 class Fraction extends Construct
 {
-    constructor(n,d=1)
+    constructor(n=1,d=1)
     {
         super();
         if(d == 0) throw new Error("Cannot Divide by Zero");
