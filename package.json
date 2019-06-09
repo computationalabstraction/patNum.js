@@ -1,16 +1,11 @@
 {
   "name": "patnum.js",
   "version": "0.0.1",
-  "description": "A Library for Mathematics",
-  "main": "Demo.js",
+  "description": "A Computational Mathematics Toolkit",
+  "main": "./src/patNum.js",
   "scripts": {
     "start": "node ."
   },
   "author": "Archan Patkar",
-  "license": "MIT",
-  "dependencies": {
-    "beepbeep": "^1.2.2",
-    "prettyjson": "^1.2.1",
-    "underscore": "^1.8.3"
-  }
+  "license": "MIT"
 }
