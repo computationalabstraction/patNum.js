@@ -1,10 +1,49 @@
 class Construct 
 {
     toString(){}
-    add(){}
-    substract(){}
-    divide(){}
-    multiply(){}
+    equals(n){}
+    add(n){}
+    substract(n){}
+    divide(n){}
+    multiply(n){}
+}
+
+class Num
+{
+    constructor(num)
+    {
+        this.num = num;
+    }
+
+    toString()
+    {
+        return "" + this.num;
+    }
+
+    equals(n)
+    {
+        return this.num == n.num;
+    }
+
+    add(n)
+    {
+        return this.num + n.num;
+    }
+
+    substract(n)
+    {
+        return this.num - n.num;
+    }
+
+    divide(n)
+    {
+        return this.num / n.num;
+    }
+
+    multiply(n)
+    {
+        return this.num * n.num;
+    }
 }
 
 function gcd(a,b)
@@ -42,13 +81,13 @@ class Fraction extends Construct
         if(d == 0) throw new Error("Cannot Divide by Zero");
         let flag1 = false;
         let flag2 = false;
-        if(!Number.isInteger(n))
+        if(!Number.isInteger(n) && !(n instanceof Construct))
         {
             flag1 = true;
             this.n = decToInt(n);
         }
         else this.n = n;
-        if(!Number.isInteger(d))
+        if(!Number.isInteger(d) && !(n instanceof Construct))
         {
             flag2 = true;
             this.n = decToInt(n);
@@ -66,6 +105,8 @@ class Fraction extends Construct
             }
             this.reduce();
         }
+        // if(typeof(this.n) == "number") this.n = new Num(this.n);
+        // if(typeof(this.d) == "number") this.d = new Num(this.d);
     }
 
     add(x)
@@ -73,70 +114,147 @@ class Fraction extends Construct
         if(x instanceof Fraction)
         {
             let temp = new Fraction(1,1);
-            if(this.d == x.d) 
+            if(typeof(this.n) == "number" && typeof(x.n) == "number" && typeof(this.d) == "number" && typeof(x.d) == "number")
             {
-                temp.n = this.n + x.n;
-                temp.d = this.d;
+                if(this.d == x.d) 
+                {
+                    temp.n = this.n + x.n;
+                    temp.d = this.d;
+                }
+                else
+                {
+                    temp.n = (x.d * this.n) + (this.d * x.n);
+                    temp.d = (this.d * x.d);
+                }
             }
             else
             {
-                temp.n = (x.d * this.n) + (this.d * x.n);
-                temp.d = (this.d * x.d);
+                let {x:d1,y:d2} = coerce(this.d,x.d);
+                if(d1.equals(d2))
+                {
+                    let {x:n1,y:n2} = coerce(this.n,x.n);
+                    temp.n = n1.add(n2);
+                    temp.d = d1;
+                }
+                else
+                {
+                    let {x:n1,y:d2} = coerce(this.n,x.d);
+                    temp.n = d2.multiply(n1);
+                    let {x:d1,y:n2} = coerce(this.d,x.n);
+                    temp.n.add(d1.multiply(n2));
+                    temp.d = d1.multiply(d2);
+                }
             }
-            console.log()
             return temp;
+        }
+        else
+        {
+            let {x:i,y:j} = coerce(this,x);
+            return i.add(j);
         }
     }
 
     substract(x)
     {
-        if(typeof(x) == "Number")
-        {
-            x = new Fraction(x,1);
-        }
         if(x instanceof Fraction)
         {
             let temp = new Fraction(1,1);
-            if(this.d == x.d) 
+            if(typeof(this.n) == "number" && typeof(x.n) == "number" && typeof(this.d) == "number" && typeof(x.d) == "number")
             {
-                temp.n = this.n - x.n;
-                temp.d = this.d;
+                if(this.d == x.d) 
+                {
+                    temp.n = this.n - x.n;
+                    temp.d = this.d;
+                }
+                else
+                {
+                    temp.n = (x.d * this.n) - (this.d * x.n);
+                    temp.d = (this.d * x.d);
+                }
             }
             else
             {
-                temp.n = (x.d * this.n) - (this.d * x.n);
-                temp.d = (this.d * x.d);
+                let {d1:x,d2:y} = coerce(this.d,x.d);
+                if(d1.equals(d2))
+                {
+                    let {n1:x,n2:y} = coerce(this.n,x.n);
+                    temp.n = n1.add(n2);
+                    temp.d = d1;
+                }
+                else
+                {
+                    let {n1:x,d2:y} = coerce(this.n,x.d);
+                    temp.n = d2.multiply(n1);
+                    let {d1:x,n2:y} = coerce(this.d,x.n);
+                    temp.n.substract(d1.multiply(n2));
+                    temp.d = d1.multiply(d2);
+                }
             }
             return temp;
+        }
+        else
+        {
+            let {i:x,j:y} = coerce(this,x);
+            return i.substract(j);
         }
     }
     
     multiply(x)
     {
-        if(typeof(x) == "Number")
-        {
-            x = new Fraction(x,1);
-        }
         if(x instanceof Fraction)
         {
             let temp = new Fraction(1,1);
-            temp.n = (this.n * x.n);
-            temp.d = (this.d * x.d);
+            if(typeof(this.n) == "number" && typeof(x.n) == "number")
+            {
+                temp.n = this.n * x.n;
+            }
+            else
+            {
+                let {n1:x,n2:y} = coerce(this.n,x.n);
+                temp.n = n1.multiply(n2);
+            }
+            if(typeof(this.d) == "number" && typeof(x.d) == "number")
+            {
+                temp.d = this.d * x.d;
+            }
+            else
+            {
+                let {d1:x,d2:y} = coerce(this.d,x.d);
+                temp.d = d1.multiply(d2);
+            }
             return temp;
+        }
+        else
+        {
+            let {i:x,j:y} = coerce(this,x);
+            return i.multiply(j);
         }
     }
 
     divide(x)
     {
-        if(typeof(x) == "Number")
-        {
-            x = new Fraction(1,x);
-        }
         if(x instanceof Fraction)
         {
-            x = new Fraction(x.d,x.n);
-            return this.multiply(x);
+            return this.multiply(x.reciprocal());
         }
+        else
+        {
+            let {i:x,j:y} = coerce(this,x);
+            return i.divide(j);
+        }
+    }
+
+    equals(n)
+    {
+        if(typeof(this.n) == "number" && typeof(n.n) == "number" && typeof(this.d) == "number" && typeof(n.d) == "number")
+            return this.n == n.n && this.d == n.d;
+        else
+            return this.n.equals(n.n) && this.d.equals(n.d);
+    }
+
+    reciprocal()
+    {
+        return new Fraction(this.d,this.n);
     }
 
     reduce()
@@ -277,25 +395,35 @@ class Complex extends Construct
 
     multiply(n)
     {
-        if(typeof(n) == "number" || n instanceof Construct)
+        if(n instanceof Complex)
         {
-            n = new Complex(n,0);
-        }
-        var temp = new Complex();
-        if(this.a instanceof Construct && this.b instanceof Construct)
-        {
-            temp.a = this.a.multiply(n.a).add(this.b.multiply(n.b).multiply(-1));
-            temp.b = this.a.multiply(n.b).add(this.b.multiply(n.a));
-        }
-        else if(n.a instanceof Construct && n.b instanceof Construct)
-        {
-            temp.a = n.a.multiply(this.a).add(this.b.multiply(n.b).multiply(-1));
-            temp.b = n.a.multiply(this.b).add(this.b.multiply(n.a));
+            var temp = new Complex();
+            if(typeof(this.a) == "number" && typeof(n.a) == "number")
+            {
+                temp.a = (this.a * n.a) + ((this.b * n.b) * -1);
+            }
+            else
+            {
+                let {a1,a2} = coerce(this.a,n.a);
+                let {b1,b2} = coerce(this.b,n.b);
+                temp.a = a1.multiply(a2).add(b1.multiply(b2).multiply(-1));
+            }
+            if(typeof(this.b) == "number" && typeof(n.b) == "number")
+            {
+                temp.b = (this.a * n.b) + (this.b * n.a);
+            }
+            else
+            {
+                let {a1,b2} = coerce(this.a,n.b);
+                let {b1,a2} = coerce(this.b,n.a);
+                temp.a = a1.multiply(b2).add(b1.multiply(a2));
+            }
+            return temp;
         }
         else
         {
-            temp.a = (this.a * n.a) + ((this.b * n.b) * -1);
-            temp.b = (this.a * n.b) + (this.b * n.a);
+            let {x,y} = coerce(this,n);
+            return x.multiply(y);
         }
         return temp;
     }
@@ -1142,7 +1270,14 @@ function ColVector(array)
 
 function coerce(x,y)
 {
-    if(typeof(x) == "number" && y instanceof Matrix)
+    if(typeof(x) == "number" && typeof(y) == "number")
+    {
+        return {
+            x:new Num(x),
+            y:new Num(y)
+        }
+    }
+    else if(typeof(x) == "number" && y instanceof Matrix)
     {
         return {
             x:Matrix.of(y.rows,y.columns).fill(x),
@@ -1249,19 +1384,25 @@ function coerce(x,y)
     }
 }
 
-const c1 = new Complex(new Fraction(2,4),1);
-console.log(c1);
-console.log(c1.toString());
-const sc1 = c1.substract(new Fraction(1,2));
-console.log(sc1);
-console.log(sc1.toString());
+// let f1 = new Fraction(new Complex(5,1),10);
+// console.log(f1.toString());
+// let f2 = f1.add(10);
+// console.log(f2.toString());
 
-const m1 = Matrix.from([new Fraction(2,4),new Fraction(2,4)]);
-console.log(m1);
-console.log(m1.toString());
-const sm1 = m1.substract(new Fraction(1,2));
-console.log(sm1);
-console.log(sm1.toString());
+// const c1 = new Complex(new Fraction(2,4),1);
+// console.log(c1);
+// console.log(c1.toString());
+
+// const sc1 = c1.substract(new Fraction(1,2));
+// console.log(sc1);
+// console.log(sc1.toString());
+
+// const m1 = Matrix.from([new Fraction(2,4),new Fraction(2,4)]);
+// console.log(m1);
+// console.log(m1.toString());
+// const sm1 = m1.substract(new Fraction(1,2));
+// console.log(sm1);
+// console.log(sm1.toString());
 
 // const next = new Complex(1,4).add(new Fraction(1,3));
 // console.log(next);
@@ -1274,10 +1415,6 @@ console.log(sm1.toString());
 // const next3 = Matrix.from([ [new Fraction(3,4),new Fraction(5,6)] , [new Fraction(8,7),new Fraction(2,3)] ]);
 // console.log(next3);
 // console.log(next3.toString());
-// const next4 = next3.add(next2)
-// console.log(next4);
-// console.log(next4.toString());
-
 
 // Exports ---------------------------------------------------------------------
 
