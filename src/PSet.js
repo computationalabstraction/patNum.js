@@ -55,7 +55,7 @@ class PSet
         for(let d of this.data)
         {
             ns.add(new PSet(d));
-            for(let d1 of this.data)
+            for(let d2 of this.data)
             {
                 if(d != d1) ns.add(new PSet(d,d1));
             } 
