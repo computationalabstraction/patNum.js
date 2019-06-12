@@ -50,7 +50,16 @@ class PSet
 
     powerset()
     {
-        
+        let ns = PSet();
+        ns.add(new PSet());
+        for(let d of this.data)
+        {
+            ns.add(new PSet(d));
+            for(let d1 of this.data)
+            {
+                if(d != d1) ns.add(new PSet(d,d1));
+            } 
+        } 
     }
 
     union(s)
@@ -78,7 +87,12 @@ class PSet
     {
         if(s instanceof PSet)
         {
-            
+            let ns = new PSet();
+            for(let d of u)
+            {
+                if(!(d in this.data)) ns.add(d);
+            }
+            return ns;
         }
         throw new TypeError("Please send a PSet Object");
     }
@@ -87,7 +101,18 @@ class PSet
     {
         if(s instanceof PSet)
         {
-            
+           let ns = new PSet();
+           for(let d1 of this.data)
+           {
+               for(d2 of s.data)
+               {
+                    let temp = [];
+                    temp.push(d1);
+                    temp.push(d2);
+                    ns.add(ns);
+               }
+           } 
+           return ns;
         }
         throw new TypeError("Please send a PSet Object");
     }
@@ -96,7 +121,12 @@ class PSet
     {
         if(s instanceof PSet)
         {
-            
+            let ns = new PSet();
+            for(let d of this.data)
+            {
+                if(!(d in s.data)) ns.add(d);
+            }
+            return ns;
         }
         throw new TypeError("Please send a PSet Object");
     }
