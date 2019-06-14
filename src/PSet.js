@@ -48,6 +48,11 @@ class PSet
         throw new TypeError("Please send a PSet Object");
     }
 
+    cardinality()
+    {
+        return this.data.length;
+    }
+
     powerset()
     {
         let ns = PSet();
@@ -55,11 +60,19 @@ class PSet
         for(let d of this.data)
         {
             ns.add(new PSet(d));
+            
             for(let d2 of this.data)
             {
-                if(d != d1) ns.add(new PSet(d,d1));
+                if(d != d1) ns.add();
             } 
         } 
+
+
+        let ns = new PSet();
+        for(let i = 0;i < ns.data.length-1;i++)
+        {
+            
+        }
     }
 
     union(s)
