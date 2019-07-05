@@ -10,10 +10,9 @@
 ### 5. `Polynomials` 
 ### 6. `Complex Numbers`
 ### 7. `Waves`
-### 8. `Game Theory`
-### 9. `Geometry`
-### 10. `Sets`
-### 11. `Enumerative Combinatorics`
+### 8. `Geometry`
+### 9. `Sets`
+### 10. `Enumerative Combinatorics`
 
 ## Statistics
 
